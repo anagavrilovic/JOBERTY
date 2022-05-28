@@ -16,37 +16,43 @@ function Registration(props) {
 
     }
 
+    function handleSelectGender(event) {
+        event.target.style.color = '#3b3b3b';
+    }
+
     return (
         <div className={classes.login}>
-            <h1>Register now!</h1>
+            <h1 className={classes.caption}>Register now!</h1>
             <form onSubmit={registrationHandler} className={classes.form}>
 
                 <div className={classes.formItem}>
-                    <input type='text' required placeholder='Common name'/>
+                    <input type='text' required placeholder='First Name' />
                 </div>
+                
                 <div className={classes.formItem}>
-                    <input type='text' required placeholder='Email'/>
-                </div>
-                <div className={classes.formItem}>
-                    <input type='text' required placeholder='Organization'/>
-                </div>
-                <div className={classes.formItem}>
-                    <input type='text' required placeholder='Organization Unit'/>
+                    <input type='text' required placeholder='Last Name' />
                 </div>
 
-                <select name="CountryCode" defaultValue="" className={classes.select}>
+                <div className={classes.formItem}>
+                    <input type='text' required placeholder='Email' />
+                </div>
 
+                <select name="Gender" defaultValue="" className={classes.select} onChange={handleSelectGender} >
+                    <option value="" disabled>Gender</option>
+                    <option value="MALE" >Male</option>
+                    <option value="FEMALE" >Female</option>
                 </select>
 
                 <div className={classes.formItem}>
-                    <input type='password' required placeholder='Password'/>
+                    <input type='password' required placeholder='Password' />
                 </div>
-                <div className={classes.formItem}>
 
+                <div className={classes.formItem}>
+                    <input type='password' required placeholder='Confirm Password' />
                 </div>
 
                 <button className={classes.buttonLogIn}>Register</button>
-                <a href="/#" className={classes.registerLink} onClick={() => props.changePage(true)}>
+                <a href="/#" className={classes.registerLink} onClick={() => props.navigateToLogin()}>
                     Already have an account? Log in here!
                 </a>
             </form>

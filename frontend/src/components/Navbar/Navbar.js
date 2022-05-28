@@ -8,6 +8,7 @@ import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../features/user";
+import j from "../../images/j.png"
 
 function Navbar() {
     var [mobileNavClicked, setMobileNavClicked] = useState(false);
@@ -24,16 +25,23 @@ function Navbar() {
 
             <nav className={classes.nav}>
                 <div>
-                    <Link to="/home" className={classes.link}>
-                        Home
+                    <Link to="/home" className={classes.logoLink}>
+                        <img src={j} alt="Joberty" className={classes.logo}/>
+                        <p className={classes.logoText}>oberty</p>
                     </Link>
                 </div>
                 <div>
-                    <Link to="/allCertificates" className={classes.link}>
-                        All Certificates
+                    <Link to="/companies" className={classes.link}>
+                        Companies
                     </Link>
-                    <Link to="/newCertificate" className={classes.link}>
-                        New Certificate
+                    <Link to="/jobs" className={classes.link}>
+                        Jobs
+                    </Link>
+                    <Link to="/salaries" className={classes.link}>
+                        Salaries
+                    </Link>
+                    <Link to="/employers" className={classes.link}>
+                        For Employers
                     </Link>
                     <Link to="/" className={classes.link}>
                         LogOut <FontAwesomeIcon icon={faRightFromBracket}  onClick={handleLogOut}/>
@@ -48,11 +56,17 @@ function Navbar() {
                         <Link to="/home" className={classes.mobileLink} onClick={() => setMobileNavClicked(false)} >
                             Home
                         </Link>
-                        <Link to="/allCertificates" className={classes.mobileLink} onClick={() => setMobileNavClicked(false)} >
-                            All Certificates
+                        <Link to="/companies" className={classes.mobileLink} onClick={() => setMobileNavClicked(false)} >
+                            Companies
                         </Link>
-                        <Link to="/newCertificate" className={classes.mobileLink} onClick={() => setMobileNavClicked(false)}  >
-                            New Certificate
+                        <Link to="/jobs" className={classes.mobileLink} onClick={() => setMobileNavClicked(false)}  >
+                            Jobs
+                        </Link>
+                        <Link to="/salaries" className={classes.mobileLink} onClick={() => setMobileNavClicked(false)}  >
+                            Salaries
+                        </Link>
+                        <Link to="/employers" className={classes.mobileLink} onClick={() => setMobileNavClicked(false)}  >
+                            For Employers
                         </Link>
                         <Link to="/" className={classes.mobileLink}>
                             LogOut <FontAwesomeIcon icon={faRightFromBracket} />

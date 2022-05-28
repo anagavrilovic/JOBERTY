@@ -34,7 +34,7 @@ function Login(props) {
 
     return (
         <div className={classes.login}>
-            <h1>Log in</h1>
+            <h1 className={classes.caption}>Log in</h1>
             <form onSubmit={submitHandler} className={classes.form}>
                 <div className={classes.formItem}>
                     <input type="text" required placeholder="Username" />
@@ -45,7 +45,7 @@ function Login(props) {
                 <p className={classes.errorMessage}>{loginError}</p>
 
                 <button className={classes.buttonLogIn}>Log in</button>
-                <a href="/#" className={classes.registerLink} onClick={() => props.changePage(false)} >
+                <a href="/#" className={classes.registerLink} onClick={() => props.navigateToRegister()} >
                     Don't have an account? Register here.
                 </a>
             </form>
