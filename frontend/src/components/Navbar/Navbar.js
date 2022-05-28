@@ -4,6 +4,7 @@ import classes from "./Navbar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
 
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -24,11 +25,15 @@ function Navbar() {
             {mobileNavClicked ? (<div className={classes.backdrop} onClick={() => setMobileNavClicked(false)} ></div>) : null}
 
             <nav className={classes.nav}>
-                <div>
+                <div className={classes.navLogo}>
                     <Link to="/home" className={classes.logoLink}>
-                        <img src={j} alt="Joberty" className={classes.logo}/>
+                        <img src={j} alt="Joberty" className={classes.logo} />
                         <p className={classes.logoText}>oberty</p>
                     </Link>
+                    <div className={classes.formItem}>
+                        <FontAwesomeIcon icon={faMagnifyingGlass} className={classes.icon} />
+                        <input type='text' placeholder='Search companies...' />
+                    </div>
                 </div>
                 <div>
                     <Link to="/companies" className={classes.link}>
@@ -44,7 +49,7 @@ function Navbar() {
                         For Employers
                     </Link>
                     <Link to="/" className={classes.link}>
-                        LogOut <FontAwesomeIcon icon={faRightFromBracket}  onClick={handleLogOut}/>
+                        <FontAwesomeIcon icon={faRightFromBracket} onClick={handleLogOut} />
                     </Link>
                     <FontAwesomeIcon icon={faBars} className={classes.menuIcon} onClick={() => setMobileNavClicked(true)} />
                 </div>
