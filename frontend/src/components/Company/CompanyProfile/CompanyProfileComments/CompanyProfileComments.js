@@ -7,9 +7,9 @@ function CompanyProfileComments() {
 
     const comment = {
         rate: 4.5,
-        caption: "Pristojna kompanija za razvoj karijere",
+        caption: "A decent career development company",
         dateCreated: "20.04.2022",
-        comment: "Osecaj zasticenosti od klijenta sa starne kompanije. Redovne povisice, juniori isto mogu da ocekuju povisicu ukoliko se okej pokazu. Timski duh, mada ovo mozda zavisi od tima, nisam siguan. Tehnologije su raznovrsne, i mogucnost prebacaja na drugu tehnologiju je isto moguc. Omogucen razvoj znanja i karijere kroz udemy i raznorazne sertifikacije. ",
+        comment: "A sense of protection from the client from the side of the company. Regular raises, juniors can also expect a raise if they show up okay. Team spirit, although this may depend on the team, I am not sure. Technologies are diverse, and the possibility of switching to another technology is also possible. Enabled knowledge and career development through udemy and various certifications.",
         job: "Software Developer (Junior)",
         currentlyWorking: true
     }
