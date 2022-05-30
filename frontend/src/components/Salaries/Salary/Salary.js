@@ -48,9 +48,6 @@ function Salary() {
                     </div>
                 </div>
             </div>
-            <div className={classes.note}>
-                <p>* The values shown are based on the entered "Salary and benefits" of the Joberty user.</p>
-            </div>
         </div>
     )
 }

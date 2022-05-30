@@ -2,6 +2,11 @@
     display: flex;
     justify-content: space-between;
     margin: 3rem 0;
+
+    background-color: white;
+    box-shadow: 2px 2px 15px #cfcfcf;
+    padding: 2rem;
+    padding-top: 1rem;
 }
 
 .info {

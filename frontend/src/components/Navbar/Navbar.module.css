@@ -1,4 +1,8 @@
 .nav {
+    position: fixed;
+    width: calc(100vw - 14%);
+    z-index: 100;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -138,6 +142,7 @@
 @media (max-width: 40rem) {
     .nav {
         padding: 0 5%;
+        width: calc(100vw - 10%);
     }
 
     .navLogo {

@@ -10,6 +10,7 @@ import Salaries from './pages/Salaries/Salaries';
 import Employers from './pages/Employers/Employers';
 
 import './App.css';
+import CompanyProfile from './components/Company/CompanyProfile/CompanyProfile/CompanyProfile';
 
 function App() {
     const location = useLocation();
@@ -24,6 +25,7 @@ function App() {
                 <Route path='/jobs' element={ <Jobs /> } />
                 <Route path='/salaries' element={ <Salaries /> } />
                 <Route path='/employers' element={ <Employers /> } />
+                <Route path='/company/:id/:name' element={ <CompanyProfile /> } />
             </Routes>
         </div>
     );
