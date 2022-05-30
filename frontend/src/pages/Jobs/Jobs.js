@@ -6,9 +6,11 @@ import JobFilter from "../../components/Jobs/JobFilter/JobFilter";
 function Jobs() {
     return (
         <div className={classes.page}>
-            <Caption caption="View Job Ads"/>
-            <CompanySearch placeholder="Work position, company or key word" />
-            <JobFilter />
+            <div className={classes.header}>
+                <Caption caption="View Job Ads" />
+                <CompanySearch placeholder="Work position, company or key word" />
+                <JobFilter />
+            </div>
         </div>
     );
 }

@@ -2,8 +2,8 @@ import React from 'react';
 import classes from "./JobFilter.module.css";
 
 function JobFilter() {
-  return (
-    <div className={classes.component}>
+    return (
+        <div className={classes.component}>
             <div className={classes.filter}>
                 <select name="City" defaultValue="" className={classes.select}>
                     <option value="" disabled>City</option>
@@ -13,27 +13,24 @@ function JobFilter() {
                     <option value="" disabled>Industry</option>
                 </select>
 
-                <select name="Employees" defaultValue="" className={classes.select}>
-                    <option value="" disabled>Number of Employees</option>
-                    <option value="20" >&lt;20</option>
-                    <option value="50" >20-50</option>
-                    <option value="100" >51-100</option>
-                    <option value="250" >101-250</option>
-                    <option value="500" >251-500</option>
-                    <option value="1000" >500-1000</option>
-                    <option value="1000+" >&gt;1000</option>
+                <select name="Seniority" defaultValue="" className={classes.select}>
+                    <option value="" disabled>Seniority</option>
+                    <option value="Internship" >Internship</option>
+                    <option value="Junior" >Junior</option>
+                    <option value="Medior" >Medior</option>
+                    <option value="Senior" >Senior</option>
                 </select>
 
-                <select name="Rate" defaultValue="" className={classes.select}>
-                    <option value="" disabled>Rate</option>
-                    <option value="2" >1-2</option>
-                    <option value="3" >2-3</option>
-                    <option value="4" >3-4</option>
-                    <option value="5" >4-5</option>
+                <select name="Pubished" defaultValue="" className={classes.select}>
+                    <option value="" disabled>Pubished</option>
+                    <option value="today" >Today</option>
+                    <option value="3" >3 days ago</option>
+                    <option value="7" >7 days ago</option>
+                    <option value="earlier" >Earlier</option>
                 </select>
             </div>
         </div>
-  )
+    )
 }
 
 export default JobFilter
