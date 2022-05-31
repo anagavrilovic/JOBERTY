@@ -50,6 +50,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
 
                 .authorizeRequests().antMatchers("/auth/**").permitAll()
+                .and()
+
+                .authorizeRequests().antMatchers("/salary/**").permitAll()
+                .and()
+
+                .authorizeRequests().antMatchers("/interview/**").permitAll()
+                .and()
+
+                .authorizeRequests().antMatchers("/comment/**").permitAll()
                 .anyRequest().authenticated().and()
 
                 .cors().and()
