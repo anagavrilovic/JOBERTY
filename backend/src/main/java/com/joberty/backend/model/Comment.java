@@ -14,17 +14,22 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 public class Comment extends BaseEntity{
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id")
+    private RegisteredUser user;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "company_id")
+    private Company company;
+
     @Column(nullable = false)
     private String text;
 
     @Column(nullable = false)
     private Date creationDate;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private RegisteredUser user;
+    @Column(nullable = false)
+    private double mark;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "company_id")
-    private Company company;
 }

@@ -14,11 +14,11 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 public class InterviewImpression extends BaseEntity {
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id")
     private RegisteredUser user;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "position_id")
     private WorkPosition position;
 
