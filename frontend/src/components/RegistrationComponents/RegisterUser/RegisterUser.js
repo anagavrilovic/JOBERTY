@@ -1,12 +1,12 @@
+import React from 'react';
+import classes from './RegisterUser.module.css';
+
 import { useState } from 'react';
-
-import classes from './Registration.module.css';
-
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-import schema from "../../validationSchemas/RegisterValidationSchema";
+import schema from "../../../validationSchemas/RegisterUserValidationSchema";
 
-function Registration(props) {
+function RegisterUser(props) {
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
@@ -42,9 +42,9 @@ function Registration(props) {
         event.target.style.color = '#3b3b3b';
     }
 
+
     return (
-        <div className={classes.login}>
-            <h1 className={classes.caption}>Register now!</h1>
+        <div>
             <form onSubmit={handleSubmit(registrationHandler)} className={classes.form}>
 
                 <div className={classes.formItem}>
@@ -83,12 +83,12 @@ function Registration(props) {
                 <div className={`${classes.formItem} ${classes.password}`}>
                     <input type='password' placeholder='Password'
                         className={`${errors.password?.message === 'Password is too weak.' || errors.password?.message === 'Password is required.' ? classes.errorInput : ''}
-                        ${errors.password?.message === 'Password has medium strength.' ? classes.mediumStrengthPassword : ''}
-                        ${!errors?.password && false ? classes.passwordStrong : ''}`}
+                    ${errors.password?.message === 'Password has medium strength.' ? classes.mediumStrengthPassword : ''}
+                    ${!errors?.password && false ? classes.passwordStrong : ''}`}
                         {...register("password")} />
                     <div className={classes.tooltip}>Strong password must be at least 10 characters long, including at least 1 uppercase letter, 1 lowercase letter, 1 numeric character and 1 special character.</div>
                     <div className={`${classes.errorMessage} 
-                        ${errors.password?.message === 'Password has medium strength.' ? classes.errorMessagePasswordWeak : ''}`}>{errors.password?.message}</div>
+                    ${errors.password?.message === 'Password has medium strength.' ? classes.errorMessagePasswordWeak : ''}`}>{errors.password?.message}</div>
                 </div>
 
                 <div className={classes.formItem}>
@@ -99,13 +99,9 @@ function Registration(props) {
                 </div>
 
                 <button className={classes.buttonLogIn}>Register</button>
-
-                <a href="/#" className={classes.registerLink} onClick={() => props.navigateToLogin()}>
-                    Already have an account? Log in here!
-                </a>
             </form>
         </div>
-    );
+    )
 }
 
-export default Registration;
+export default RegisterUser
