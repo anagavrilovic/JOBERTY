@@ -7,19 +7,8 @@ import StarRate from '../../StarRate/StarRate';
 function Company({company}) {
     const navigate = useNavigate();
 
-    // const company = {
-    //     id: 1,
-    //     name: "Synechron",
-    //     rate: 4.1,
-    //     impressionNumber: 83,
-    //     cities: ['Novi Sad', 'Beograd'],
-    //     employeeNumber: '251-500',
-    //     industry: 'IT Services',
-    //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    // }
-
     function handleViewCompany() {
-        navigate(`/company/${company.id}/${company.name}`, {state: {company: company}});
+        navigate(`/company/${company.id}/${company.name}`, {state: {company: company }});
     }
 
     return (

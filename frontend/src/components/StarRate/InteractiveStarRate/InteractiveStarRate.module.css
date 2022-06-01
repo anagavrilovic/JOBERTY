@@ -1,0 +1,19 @@
+.starYes {
+    color: var(--yellow);
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.starNo {
+    color: #cfcfcf;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+@media(max-width: 40rem) {
+    .starNo,
+    .starYes {
+        width: 0.9rem;
+        height: 0.9rem;
+    }
+}

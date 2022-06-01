@@ -21,6 +21,8 @@ public class CustomMapper {
                 .creationDate(new Date())
                 .text(commentDto.getText())
                 .mark(commentDto.getMark())
+                .caption(commentDto.getCaption())
+                .isCurrentlyWorking(commentDto.isCurrentlyWorking())
                 .build();
 
         return comment;
@@ -56,6 +58,8 @@ public class CustomMapper {
                 .technicalInterviewImpression(interviewImpressionDto.getTechnicalInterviewImpression())
                 .creationDate(new Date())
                 .offerStatus(interviewImpressionDto.getOfferStatus())
+                .caption(interviewImpressionDto.getCaption())
+                .mark(interviewImpressionDto.getMark())
                 .build();
 
         return impression;

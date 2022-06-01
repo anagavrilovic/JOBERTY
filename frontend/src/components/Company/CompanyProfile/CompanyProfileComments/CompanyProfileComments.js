@@ -1,21 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import StarRate from '../../../StarRate/StarRate';
 import classes from './CompanyProfileComments.module.css';
-import { getCommentsByCompany } from '../../../../api/CompanyApi';
 
-function CompanyProfileComments({companyId}) {
-    const [comments, setComments] = useState([])
+function CompanyProfileComments({comments}) {
 
-
-    useEffect(() => {
-        async function getComments(){
-            const results = await getCommentsByCompany(companyId);
-            setComments(results);
-        }
-
-        getComments();
-    }, [companyId])
-
+    console.log(comments)
 
     return (
         <div className={classes.comments}>
@@ -34,7 +23,7 @@ function CompanyProfileComments({companyId}) {
                     <div className={classes.commentContent}>
                         <p className={classes.commentText}>{c.text}</p>
                         <p className={classes.authorInfo}>{c.user.firstName} {c.user.lastName}</p>
-                        <p className={classes.authorInfo}>{c.isCurrentlyWorking ? "Currently working in this company" : "Not working anymore in this company"}</p>
+                        <p className={classes.authorInfo}>{c.currentlyWorking ? "Currently working in this company" : "Not working anymore in this company"}</p>
                     </div>
                 </div>
             })}

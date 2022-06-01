@@ -16,4 +16,6 @@ public class InterviewImpressionDto {
     private OfferStatus offerStatus;
     private String technicalInterviewImpression;
     private String hrInterviewImpression;
+    private String caption;
+    private double mark;
 }

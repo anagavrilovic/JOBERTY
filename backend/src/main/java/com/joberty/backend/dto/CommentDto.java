@@ -14,4 +14,6 @@ public class CommentDto {
     private Integer userId;
     private Integer companyId;
     private double mark;
+    private String caption;
+    private boolean isCurrentlyWorking;
 }

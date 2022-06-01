@@ -18,7 +18,7 @@ function AllCompanies() {
     return (
         <div className={classes.component} > {
             companies.map((company) => {
-                return <Company key={company.name} company={company}/>
+                return <Company key={company.name} company={company} />
             })
         }
         </div>

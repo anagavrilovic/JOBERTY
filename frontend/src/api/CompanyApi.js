@@ -19,3 +19,8 @@ export async function getInterviewsByCompany(companyId) {
     const response = await axiosInstance.get(`interview/all/${companyId}`);
     return response.data;
 }
+
+export async function addComment(newComment) {
+    const response = await axiosInstance.post('comment', newComment);
+    return response;
+}
