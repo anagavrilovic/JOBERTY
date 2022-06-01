@@ -33,4 +33,11 @@ public class InterviewImpression extends BaseEntity {
 
     @Column(nullable = false)
     private String hrInterviewImpression;
+
+    @Column(nullable = false)
+    private String caption;
+
+    @Column(nullable = false)
+    private double mark;
+
 }

@@ -32,4 +32,10 @@ public class Comment extends BaseEntity{
     @Column(nullable = false)
     private double mark;
 
+    @Column(nullable = false)
+    private String caption;
+
+    @Column
+    private boolean isCurrentlyWorking;
+
 }

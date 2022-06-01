@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './CompanyProfile.module.css';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Synechron from '../../../../images/synechron.png';
 import StarRate from '../../../StarRate/StarRate';
 import { useState } from 'react';
@@ -13,23 +13,12 @@ import CompanyProfileJobs from '../CompanyProfileJobs/CompanyProfileJobs';
 
 
 function CompanyProfile() {
-    let { id } = useParams();
-    let { name } = useParams();
+
+    const location = useLocation();
 
     const [activeTab, setactiveTab] = useState('about');
 
-    const company = {
-        id: id,
-        name: name,
-        rate: 4.1,
-        impressionNumber: 83,
-        cities: ['Novi Sad', 'Beograd'],
-        employeeNumber: '251-500',
-        industry: 'IT Services',
-        website: 'www.synechron.com',
-        origin: 'SAD',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    }
+    const company = location.state.company;
 
     return (
         <div>
@@ -37,11 +26,11 @@ function CompanyProfile() {
             <div className={classes.page}>
                 <div className={classes.mainInfoWrapper}>
                     <div className={classes.mainInfo}>
-                        <img src={Synechron} alt={name} className={classes.profilePhoto} />
+                        <img src={Synechron} alt={"Company logo"} className={classes.profilePhoto} />
                         <div className={classes.profileInfo}>
                             <h2 className={classes.companyName}>{company.name}</h2>
                             <div className={classes.stars}>
-                                <StarRate rate={company.rate} />
+                                <StarRate rate={4} />
                                 <p className={classes.rate}>{company.rate}</p>
                             </div>
                             <p className={classes.avgRate}>(average rate)</p>
@@ -57,7 +46,7 @@ function CompanyProfile() {
 
                 {activeTab === 'about' ? <CompanyProfileAbout company={company} /> : null}
                 {activeTab === 'comments' ? <CompanyProfileComments companyId={company.id} /> : null}
-                {activeTab === 'salary' ? <CompanyProfileSalary ompanyId={company.id} /> : null}
+                {activeTab === 'salary' ? <CompanyProfileSalary companyId={company.id} /> : null}
                 {activeTab === 'interview' ? <CompanyProfileInterview companyId={company.id} /> : null}
                 {activeTab === 'jobs' ? <CompanyProfileJobs companyId={company.id} /> : null}
             </div>

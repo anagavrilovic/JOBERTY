@@ -22,4 +22,7 @@ public class WorkPosition extends BaseEntity {
 
     @Column(nullable = false)
     private FormOfEmployment formOfEmployment;
+
+    @Column(nullable = false)
+    private Seniority seniority;
 }
