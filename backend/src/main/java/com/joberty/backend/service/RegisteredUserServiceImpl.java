@@ -35,6 +35,7 @@ public class RegisteredUserServiceImpl implements RegisteredUserService {
     @Override
     public void registerCompany(CompanyRegistrationRequest companyRequest) {
         RegisteredUser newUser = modelMapper.map(companyRequest, RegisteredUser.class);
+        newUser.setId(null);
         Role role = roleService.findOneByName("ROLE_COMPANY_OWNER");
         newUser.setRole(role);
         newUser.setPassword(passwordEncoder.encode(companyRequest.getPassword()));

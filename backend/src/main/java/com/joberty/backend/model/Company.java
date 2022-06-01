@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @Builder
 public class Company extends BaseEntity{
+
     @Column(nullable = false)
     private String name;
 

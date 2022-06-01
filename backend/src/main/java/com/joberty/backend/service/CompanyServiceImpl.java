@@ -21,6 +21,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public Company save(CompanyRegistrationRequest companyRequest) {
         Company newCompany = this.modelMapper.map(companyRequest, Company.class);
+        newCompany.setId(null);
         this.userService.registerCompany(companyRequest);
         return this.companyRepository.save(newCompany);
     }

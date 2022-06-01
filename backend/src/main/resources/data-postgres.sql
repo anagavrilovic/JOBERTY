@@ -4,6 +4,7 @@ INSERT INTO role(id, name) VALUES (2, 'ROLE_COMPANY_OWNER');
 INSERT INTO role(id, name) VALUES (3, 'ROLE_USER');
 
 -- Users
+INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('admin@gmail.com', true, 'Elon', 0, 'Musk', '$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW', 1);
 INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('srdjan@gmail.com', true, 'Srdjan', 0, 'Sukovic', '123456', 3);
 INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('srdjan.s@gmail.com', true, 'Serhio', 0, 'Ramos', '123456', 3);
 
