@@ -11,7 +11,8 @@ import CompanyProfileSalary from '../CompanyProfileSalary/CompanyProfileSalary';
 import CompanyProfileInterview from '../CompanyProfileInterview/CompanyProfileInterview';
 import CompanyProfileJobs from '../CompanyProfileJobs/CompanyProfileJobs';
 import AddComment from '../CompanyProfileComments/AddComment/AddComment';
-import { getCommentsByCompany } from '../../../../api/CompanyApi';
+import { getCommentsByCompany, getSalariesByCompany } from '../../../../api/CompanyApi';
+import AddSalary from '../CompanyProfileSalary/AddSalary/AddSalary';
 
 
 function CompanyProfile() {
@@ -19,7 +20,9 @@ function CompanyProfile() {
     const location = useLocation();
     const [activeTab, setactiveTab] = useState('about');
     const [addCommentVisible, setAddCommentVisible] = useState(false);
-    const [comments, setComments] = useState([])
+    const [addSalaryVisible, setAddSalaryVisible] = useState(false);
+    const [comments, setComments] = useState([]);
+    const [salaries, setSalaries] = useState([]);
 
     const company = location.state.company;
 
@@ -27,9 +30,18 @@ function CompanyProfile() {
         setAddCommentVisible(!addCommentVisible);
     }
 
+    function toggleAddSalaryModal() {
+        setAddSalaryVisible(!addSalaryVisible);
+    }
+
     async function reloadComments(){
         const results = await getCommentsByCompany(company.id);
         setComments(results);
+    }
+
+    async function reloadSalaries(){
+        const results = await getSalariesByCompany(company.id);
+        setSalaries(results);
     }
 
     useEffect(() => {
@@ -38,6 +50,12 @@ function CompanyProfile() {
             setComments(results);
         }
 
+        async function getSalaries(){
+            const results = await getSalariesByCompany(company.id);
+            setSalaries(results);
+        }
+
+        getSalaries();
         getComments();
     }, [company])
 
@@ -59,7 +77,7 @@ function CompanyProfile() {
                     </div>
 
                     {activeTab === 'comments' ? <button className={classes.button} onClick={toggleAddCommentModal}>Leave a comment</button> : null}
-                    {activeTab === 'salary' ? <button className={classes.button}>Leave a salary information</button> : null}
+                    {activeTab === 'salary' ? <button className={classes.button} onClick={toggleAddSalaryModal}>Leave a salary information</button> : null}
                     {activeTab === 'interview' ? <button className={classes.button}>Leave an interview impression</button> : null}
                 </div>
 
@@ -67,12 +85,13 @@ function CompanyProfile() {
 
                 {activeTab === 'about' ? <CompanyProfileAbout company={company} /> : null}
                 {activeTab === 'comments' ? <CompanyProfileComments comments={comments} /> : null}
-                {activeTab === 'salary' ? <CompanyProfileSalary companyId={company.id} /> : null}
+                {activeTab === 'salary' ? <CompanyProfileSalary companyId={company.id} salaries={salaries} /> : null}
                 {activeTab === 'interview' ? <CompanyProfileInterview companyId={company.id} /> : null}
                 {activeTab === 'jobs' ? <CompanyProfileJobs companyId={company.id} /> : null}
             </div>
 
             {addCommentVisible && <AddComment toggleAddComment={toggleAddCommentModal} company={company} reload={reloadComments}/>}
+            {addSalaryVisible && <AddSalary toggleAddSalary={toggleAddSalaryModal} company={company} reload={reloadSalaries}/>}
         </div>
     )
 }

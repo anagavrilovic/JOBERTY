@@ -4,8 +4,6 @@ import classes from './CompanyProfileComments.module.css';
 
 function CompanyProfileComments({comments}) {
 
-    console.log(comments)
-
     return (
         <div className={classes.comments}>
             {comments.map((c) => {
