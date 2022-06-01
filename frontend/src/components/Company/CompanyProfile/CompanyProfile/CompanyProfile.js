@@ -11,8 +11,9 @@ import CompanyProfileSalary from '../CompanyProfileSalary/CompanyProfileSalary';
 import CompanyProfileInterview from '../CompanyProfileInterview/CompanyProfileInterview';
 import CompanyProfileJobs from '../CompanyProfileJobs/CompanyProfileJobs';
 import AddComment from '../CompanyProfileComments/AddComment/AddComment';
-import { getCommentsByCompany, getSalariesByCompany } from '../../../../api/CompanyApi';
+import { getCommentsByCompany, getInterviewsByCompany, getSalariesByCompany } from '../../../../api/CompanyApi';
 import AddSalary from '../CompanyProfileSalary/AddSalary/AddSalary';
+import AddInterview from '../CompanyProfileInterview/AddInterview/AddInterview';
 
 
 function CompanyProfile() {
@@ -21,8 +22,10 @@ function CompanyProfile() {
     const [activeTab, setactiveTab] = useState('about');
     const [addCommentVisible, setAddCommentVisible] = useState(false);
     const [addSalaryVisible, setAddSalaryVisible] = useState(false);
+    const [addInterviewVisible, setAddInterviewVisible] = useState(false);
     const [comments, setComments] = useState([]);
     const [salaries, setSalaries] = useState([]);
+    const [interviews, setInterviews] = useState([]);
 
     const company = location.state.company;
 
@@ -34,6 +37,10 @@ function CompanyProfile() {
         setAddSalaryVisible(!addSalaryVisible);
     }
 
+    function toggleAddInterviewModal() {
+        setAddInterviewVisible(!addInterviewVisible);
+    }
+
     async function reloadComments(){
         const results = await getCommentsByCompany(company.id);
         setComments(results);
@@ -42,6 +49,11 @@ function CompanyProfile() {
     async function reloadSalaries(){
         const results = await getSalariesByCompany(company.id);
         setSalaries(results);
+    }
+
+    async function reloadInterviews(){
+        const results = await getInterviewsByCompany(company.id);
+        setInterviews(results);
     }
 
     useEffect(() => {
@@ -55,6 +67,12 @@ function CompanyProfile() {
             setSalaries(results);
         }
 
+        async function getInterviews(){
+            const results = await getInterviewsByCompany(company.id);
+            setInterviews(results);
+        }
+
+        getInterviews();
         getSalaries();
         getComments();
     }, [company])
@@ -78,7 +96,7 @@ function CompanyProfile() {
 
                     {activeTab === 'comments' ? <button className={classes.button} onClick={toggleAddCommentModal}>Leave a comment</button> : null}
                     {activeTab === 'salary' ? <button className={classes.button} onClick={toggleAddSalaryModal}>Leave a salary information</button> : null}
-                    {activeTab === 'interview' ? <button className={classes.button}>Leave an interview impression</button> : null}
+                    {activeTab === 'interview' ? <button className={classes.button} onClick={toggleAddInterviewModal}>Leave an interview impression</button> : null}
                 </div>
 
                 <CompanyProfileNavigation activeTab={activeTab} setactiveTab={(tab) => setactiveTab(tab)} />
@@ -86,12 +104,13 @@ function CompanyProfile() {
                 {activeTab === 'about' ? <CompanyProfileAbout company={company} /> : null}
                 {activeTab === 'comments' ? <CompanyProfileComments comments={comments} /> : null}
                 {activeTab === 'salary' ? <CompanyProfileSalary companyId={company.id} salaries={salaries} /> : null}
-                {activeTab === 'interview' ? <CompanyProfileInterview companyId={company.id} /> : null}
+                {activeTab === 'interview' ? <CompanyProfileInterview comments={interviews} /> : null}
                 {activeTab === 'jobs' ? <CompanyProfileJobs companyId={company.id} /> : null}
             </div>
 
             {addCommentVisible && <AddComment toggleAddComment={toggleAddCommentModal} company={company} reload={reloadComments}/>}
             {addSalaryVisible && <AddSalary toggleAddSalary={toggleAddSalaryModal} company={company} reload={reloadSalaries}/>}
+            {addInterviewVisible && <AddInterview toggleAddInterview={toggleAddInterviewModal} company={company} reload={reloadInterviews}/>}
         </div>
     )
 }

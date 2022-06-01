@@ -5,6 +5,7 @@ import classes from "./AddComment.module.css"
 
 const AddComment = ({ toggleAddComment, company, reload }) => {
     const [comment, setComment] = useState({ mark: 0, currentlyWorking: false, companyId: company.id, userId: 1 });
+    const [error, setError] = useState('');
 
     function ratingChanged(value) {
         setComment(prev => ({ ...prev, mark: parseFloat(value) }));
@@ -13,6 +14,8 @@ const AddComment = ({ toggleAddComment, company, reload }) => {
     function onCommentChange(e) {
         const element = e.target.id;
         const value = e.target.value;
+
+        setError("");
 
         switch (element) {
             case "commentCaption":
@@ -32,7 +35,12 @@ const AddComment = ({ toggleAddComment, company, reload }) => {
 
     function onCommentSave(e){
         e.preventDefault();
-        console.log(comment);
+        
+        if(!comment.caption || !comment.text || comment.mark === 0.0){
+            setError("All fields are required.");
+            return;
+        }
+
         addComment(comment).then(() => {
             reload();
             toggleAddComment();
@@ -52,12 +60,12 @@ const AddComment = ({ toggleAddComment, company, reload }) => {
                         <div className={classes.fieldTitle}>
                             <span> Caption </span>
                         </div>
-                        <input type="text" className={classes.input} id="commentCaption" onChange={onCommentChange} required></input>
+                        <input type="text" className={classes.input} id="commentCaption" onChange={onCommentChange}></input>
 
                         <div className={classes.fieldTitle}>
                             <span> Text </span>
                         </div>
-                        <textarea className={classes.inputArea} id="commentText" onChange={onCommentChange} required></textarea>
+                        <textarea className={classes.inputArea} id="commentText" onChange={onCommentChange}></textarea>
 
                         <div className={classes.fieldTitle}>
                             <span className={classes.ratingTitle}> Leave a rating </span>
@@ -68,6 +76,7 @@ const AddComment = ({ toggleAddComment, company, reload }) => {
                             <input type="checkbox" className={classes.checkbox} id="commentIsCurrentlyWorking" onChange={onCommentChange}></input>
                             <label> I am currently working at this role </label>
                         </div>
+                        <div className={classes.error}> {error} </div>
                     </div>
 
                     <div className={classes.footer}>

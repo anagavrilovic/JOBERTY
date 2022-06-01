@@ -34,3 +34,8 @@ export async function addSalaryInfo(newSalary) {
     const response = await axiosInstance.post('salary', newSalary);
     return response;
 }
+
+export async function addInterviewInfo(newInterview) {
+    const response = await axiosInstance.post('interview', newInterview);
+    return response;
+}

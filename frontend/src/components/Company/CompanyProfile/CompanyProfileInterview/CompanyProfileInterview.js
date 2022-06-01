@@ -1,20 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import classes from './CompanyProfileInterview.module.css';
 import StarRate from '../../../StarRate/StarRate';
-import { getInterviewsByCompany } from '../../../../api/CompanyApi';
 
-function CompanyProfileInterview({companyId}) {
-
-    const [comments, setComments] = useState([]);
-
-    useEffect(() => {
-        async function getInterviews(){
-            const results = await getInterviewsByCompany(companyId);
-            setComments(results);
-        }
-
-        getInterviews();
-    }, [companyId])
+function CompanyProfileInterview({comments}) {
 
 
     function formatOfferStatus(status){

@@ -5,6 +5,7 @@ import classes from './AddSalary.module.css'
 const AddSalary = ({ toggleAddSalary, company, reload }) => {
     const [salary, setSalary] = useState({positionId: 1, userId: 1});
     const [positions, setPositions] = useState([]);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         async function getPositions(){
@@ -22,11 +23,18 @@ const AddSalary = ({ toggleAddSalary, company, reload }) => {
     }
 
     function onAmountChange(e){
-        setSalary(prev => ({ ...prev, amountInEur: e.target.value }));
+        setError("");
+        setSalary(prev => ({ ...prev, amountInEur: parseFloat(e.target.value) }));
     }
 
     function onSaveSalaryInformation(e){
         e.preventDefault();
+        console.log(salary)
+        if(salary.amountInEur <= 0 || !salary.amountInEur) {
+            setError("Must be greater than 0.");
+            return;
+        }
+
         addSalaryInfo(salary).then(() => {
             reload();
             toggleAddSalary();
@@ -55,6 +63,7 @@ const AddSalary = ({ toggleAddSalary, company, reload }) => {
                             <span> Amount in EUR </span>
                         </div>
                         <input type="number" className={classes.input} id="salaryAmount" onChange={onAmountChange} required></input>
+                        <div className={classes.error}> {error} </div>
                     </div>
 
                     <div className={classes.footer}>
