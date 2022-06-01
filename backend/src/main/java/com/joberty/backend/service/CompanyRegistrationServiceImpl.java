@@ -3,7 +3,9 @@ package com.joberty.backend.service;
 import com.joberty.backend.exception.RegistrationRequestNotFoundException;
 import com.joberty.backend.model.CompanyRegistrationRequest;
 import com.joberty.backend.repository.CompanyRegistrationRequestRepository;
+import com.joberty.backend.repository.CompanyRepository;
 import com.joberty.backend.service.interfaces.CompanyRegistrationService;
+import com.joberty.backend.service.interfaces.CompanyService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,8 @@ import java.util.List;
 public class CompanyRegistrationServiceImpl implements CompanyRegistrationService {
 
     private final CompanyRegistrationRequestRepository companyRegistrationRepository;
-    
+    private final CompanyService companyService;
+
     @Override
     public List<CompanyRegistrationRequest> getAllRegistrationRequests() {
         return this.companyRegistrationRepository.findAll();
@@ -26,7 +29,7 @@ public class CompanyRegistrationServiceImpl implements CompanyRegistrationServic
         if(request == null)
             throw new RegistrationRequestNotFoundException();
 
-        //TODO save company as user
+        this.companyService.save(request);
         this.companyRegistrationRepository.delete(request);
     }
 

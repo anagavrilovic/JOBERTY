@@ -18,7 +18,7 @@ public class Company extends BaseEntity{
     private String name;
 
     @Column(nullable = false, unique = true)
-    private String username;
+    private String email;
 
     @Column
     private String description;

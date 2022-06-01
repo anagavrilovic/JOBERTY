@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/registration-request", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/company-registration", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 public class CompanyRegistrationController {
 

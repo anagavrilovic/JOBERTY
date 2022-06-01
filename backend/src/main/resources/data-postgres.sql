@@ -1,3 +1,4 @@
+--Roles
 INSERT INTO role(id, name) VALUES (1, 'ROLE_ADMIN');
 INSERT INTO role(id, name) VALUES (2, 'ROLE_COMPANY_OWNER');
 INSERT INTO role(id, name) VALUES (3, 'ROLE_USER');
@@ -7,8 +8,8 @@ INSERT INTO registered_user(email, enabled, first_name, gender, last_name, passw
 INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('srdjan.s@gmail.com', true, 'Serhio', 0, 'Ramos', '123456', 3);
 
 -- Companies
-INSERT INTO company(description, industry, name, size, username, website) VALUES ('Some description', 'IT', 'Synechron', 10000, 'synDragan', 'syn.dragan.com');
-INSERT INTO company(description, industry, name, size, username, website) VALUES ('Some other description', 'IT', 'Levi9', 1000, 'leviNiner', 'levi.nine.com');
+INSERT INTO company(description, industry, name, size, email, website) VALUES ('Some description', 'IT', 'Synechron', 10000, 'synDragan', 'syn.dragan.com');
+INSERT INTO company(description, industry, name, size, email, website) VALUES ('Some other description', 'IT', 'Levi9', 1000, 'leviNiner', 'levi.nine.com');
 
 -- Synechron comments
 INSERT INTO comment(creation_date, text, company_id, user_id, mark) VALUES (current_timestamp, 'First comment Synechron.', 1, 1, 5.0);
