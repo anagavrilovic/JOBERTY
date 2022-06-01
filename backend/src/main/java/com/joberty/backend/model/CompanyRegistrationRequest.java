@@ -1,31 +1,29 @@
 package com.joberty.backend.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Company extends BaseEntity{
-
+public class CompanyRegistrationRequest extends BaseEntity{
     @Column(nullable = false)
     private String name;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column
-    private String description;
+    @Column(nullable = false)
+    private String password;
 
     @Column
     private String website;
+
+    @Column
+    private String cities;
 
     @Column
     private int size;

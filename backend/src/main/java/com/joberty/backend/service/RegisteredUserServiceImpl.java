@@ -1,6 +1,7 @@
 package com.joberty.backend.service;
 
 import com.joberty.backend.dto.RegisteredUserDto;
+import com.joberty.backend.model.CompanyRegistrationRequest;
 import com.joberty.backend.model.RegisteredUser;
 import com.joberty.backend.model.Role;
 import com.joberty.backend.repository.RegisteredUserRepository;
@@ -32,9 +33,21 @@ public class RegisteredUserServiceImpl implements RegisteredUserService {
     }
 
     @Override
+    public void registerCompany(CompanyRegistrationRequest companyRequest) {
+        RegisteredUser newUser = modelMapper.map(companyRequest, RegisteredUser.class);
+        newUser.setId(null);
+        Role role = roleService.findOneByName("ROLE_COMPANY_OWNER");
+        newUser.setRole(role);
+        newUser.setPassword(passwordEncoder.encode(companyRequest.getPassword()));
+        newUser.setEnabled(true);
+        this.userRepository.save(newUser);
+    }
+
+    @Override
     public RegisteredUserDto saveUser(RegisteredUserDto userDTO) {
         RegisteredUser user = modelMapper.map(userDTO, RegisteredUser.class);
         this.userRepository.save(user);
         return userDTO;
     }
+
 }
