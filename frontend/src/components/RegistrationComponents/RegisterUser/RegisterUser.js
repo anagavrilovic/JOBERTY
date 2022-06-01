@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import schema from "../../../validationSchemas/RegisterUserValidationSchema";
+import { axiosInstance } from "../../../api/AxiosInstance"
 
 function RegisterUser(props) {
 
@@ -19,15 +20,15 @@ function RegisterUser(props) {
         const registrationRequest = {
             password: data.password,
             role: "USER",
-            first_name: data.firstName,
-            last_name: data.lastName,
+            firstName: data.firstName,
+            lastName: data.lastName,
             email: data.email,
             gender: data.gender === 'MALE' ? 0 : 1
         }
 
         console.log(registrationRequest);
 
-        /*axiosInstance.post("registration", registrationRequest)
+        axiosInstance.post("auth/register", registrationRequest)
             .then(() => {
                 props.changeMode('emailSent');
             })
@@ -35,7 +36,7 @@ function RegisterUser(props) {
                 if (error.response.data.includes("email already exists")) {
                     setServerError(true);
                 }
-            })*/
+            })
     }
 
     function handleSelectGender(event) {

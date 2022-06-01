@@ -10,4 +10,6 @@ public interface RegisteredUserService {
     RegisteredUserDto saveUser(RegisteredUserDto userDTO);
 
     void registerCompany(CompanyRegistrationRequest companyRequest);
+
+    RegisteredUserDto getUserByUsername(String username);
 }

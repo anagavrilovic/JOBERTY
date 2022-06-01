@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import schema from "../../../validationSchemas/RegisterCompanyValidationSchema";
+import { axiosInstance } from "../../../api/AxiosInstance"
 
 function RegisterCompany(props) {
 
@@ -19,17 +20,17 @@ function RegisterCompany(props) {
         const registrationRequest = {
             password: data.password,
             role: "COMPANY",
-            company_name: data.companyName,
+            name: data.companyName,
             cities: data.cities,
             email: data.email,
             website: data.website,
-            company_size: data.companySize,
+            size: data.companySize,
             industry: data.industry
         }
 
         console.log(registrationRequest);
 
-        /*axiosInstance.post("registration", registrationRequest)
+        axiosInstance.post("company-registration", registrationRequest)
             .then(() => {
                 props.changeMode('emailSent');
             })
@@ -37,7 +38,7 @@ function RegisterCompany(props) {
                 if (error.response.data.includes("email already exists")) {
                     setServerError(true);
                 }
-            })*/
+            })
     }
 
     function handleSelectGender(event) {
