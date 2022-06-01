@@ -51,7 +51,7 @@ const AddInterview = ({ company, toggleAddInterview, reload }) => {
     }
 
     function validateInput(){
-        if(!interview.caption || !interview.hrInterviewImpression || !interview.technicalInterviewImpression){
+        if(!interview.caption || !interview.hrInterviewImpression || !interview.technicalInterviewImpression || !interview.mark){
             setError("All fields are required.");
             return false;
         }

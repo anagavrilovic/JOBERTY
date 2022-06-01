@@ -7,7 +7,7 @@ function CompanyProfileInterview({comments}) {
 
     function formatOfferStatus(status){
         status = status.charAt(0).toUpperCase() + status.slice(1);
-        status = status.replace("_", " ");
+        status = status.replaceAll("_", " ");
         return status;
     }
 
