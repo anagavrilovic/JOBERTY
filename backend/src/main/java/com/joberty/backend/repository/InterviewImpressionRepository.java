@@ -12,4 +12,6 @@ public interface InterviewImpressionRepository extends JpaRepository<InterviewIm
     @Query("select i from InterviewImpression i where i.position.company.id = ?1")
     Collection<InterviewImpression> findByCompany(Integer companyId);
 
+    @Query("select i from InterviewImpression i where i.position.id = ?1 and i.user.id = ?2 ")
+    Collection<InterviewImpression> findInterviewImpressionByUserAndCompany(Integer positionId, Integer userId);
 }

@@ -17,8 +17,17 @@ public class InterviewImpressionServiceImpl implements InterviewImpressionServic
     private final InterviewImpressionRepository interviewImpressionRepository;
 
     @Override
-    public InterviewImpression save(InterviewImpressionDto interviewImpressionDto) {
+    public InterviewImpression save(InterviewImpressionDto interviewImpressionDto) throws UnsupportedOperationException {
         InterviewImpression impression = CustomMapper.mapInterviewImpression(interviewImpressionDto);
+
+        Collection<InterviewImpression> impressionsByUserAndCompany =
+                interviewImpressionRepository.findInterviewImpressionByUserAndCompany(
+                        impression.getPosition().getId(),
+                        impression.getUser().getId()
+                );
+
+        if(impressionsByUserAndCompany.size() > 0) throw new UnsupportedOperationException();
+
         return interviewImpressionRepository.save(impression);
     }
 

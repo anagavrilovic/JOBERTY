@@ -39,6 +39,9 @@ const AddSalary = ({ toggleAddSalary, company, reload }) => {
             reload();
             toggleAddSalary();
         })
+        .catch((e) => {
+            setError(e.response.data.message);
+        });
 
     }
 

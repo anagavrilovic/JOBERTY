@@ -67,6 +67,9 @@ const AddInterview = ({ company, toggleAddInterview, reload }) => {
             reload();
             toggleAddInterview();
         })
+        .catch((e) => {
+            setError(e.response.data.message);
+        })
     }
 
     return (

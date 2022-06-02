@@ -44,6 +44,9 @@ const AddComment = ({ toggleAddComment, company, reload }) => {
         addComment(comment).then(() => {
             reload();
             toggleAddComment();
+        })
+        .catch((e) => {
+            setError(e.response.data.message);
         });
     }
 
