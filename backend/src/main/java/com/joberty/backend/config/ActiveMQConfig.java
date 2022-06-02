@@ -22,7 +22,7 @@ public class ActiveMQConfig {
     public ConnectionFactory connectionFactory(){
         ActiveMQConnectionFactory activeMQConnectionFactory  = new ActiveMQConnectionFactory();
         activeMQConnectionFactory.setBrokerURL(brokerUrl);
-        activeMQConnectionFactory.setTrustedPackages(Arrays.asList("com.synechron"));
+//        activeMQConnectionFactory.setTrustedPackages(Arrays.asList("com.synechron"));
         return  activeMQConnectionFactory;
     }
 

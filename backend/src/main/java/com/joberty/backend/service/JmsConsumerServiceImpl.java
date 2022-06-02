@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.jms.Message;
 import javax.jms.ObjectMessage;
+import javax.jms.TextMessage;
 import java.time.LocalDateTime;
 import java.util.Base64;
 
@@ -24,10 +25,14 @@ public class JmsConsumerServiceImpl implements JmsConsumerService {
     @JmsListener(destination = "${active-mq.topic}")
     public void onMessage(Message messageReceived) {
         try{
-            ObjectMessage objectMessage = (ObjectMessage)messageReceived;
-            String token = (String)objectMessage.getObject();
-            if(tokenIsValid(token)){
-                ApiToken apiToken = new ApiToken(token, LocalDateTime.now().plusHours(1));
+            if (messageReceived instanceof TextMessage) {
+                TextMessage objectMessage = (TextMessage) messageReceived;
+                System.out.println("Message received " + objectMessage.getText());
+                String token = objectMessage.getText();
+//                if (tokenIsValid(token)) {
+                    ApiToken apiToken = new ApiToken(token, LocalDateTime.now().plusHours(1));
+                    tokenRepository.save(apiToken);
+//                }
             }
         } catch(Exception e) {
             log.error("Received Exception while processing message: "+ e);
