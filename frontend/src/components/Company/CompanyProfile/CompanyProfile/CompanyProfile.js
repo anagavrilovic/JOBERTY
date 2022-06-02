@@ -1,35 +1,81 @@
 import React from 'react';
 import classes from './CompanyProfile.module.css';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Synechron from '../../../../images/synechron.png';
 import StarRate from '../../../StarRate/StarRate';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CompanyProfileNavigation from '../CompanyProfileNavigation/CompanyProfileNavigation';
 import CompanyProfileAbout from '../CompanyProfileAbout/CompanyProfileAbout';
 import CompanyProfileComments from '../CompanyProfileComments/CompanyProfileComments';
 import CompanyProfileSalary from '../CompanyProfileSalary/CompanyProfileSalary';
 import CompanyProfileInterview from '../CompanyProfileInterview/CompanyProfileInterview';
 import CompanyProfileJobs from '../CompanyProfileJobs/CompanyProfileJobs';
+import AddComment from '../CompanyProfileComments/AddComment/AddComment';
+import { getCommentsByCompany, getInterviewsByCompany, getSalariesByCompany } from '../../../../api/CompanyApi';
+import AddSalary from '../CompanyProfileSalary/AddSalary/AddSalary';
+import AddInterview from '../CompanyProfileInterview/AddInterview/AddInterview';
 
 
 function CompanyProfile() {
-    let { id } = useParams();
-    let { name } = useParams();
 
+    const location = useLocation();
     const [activeTab, setactiveTab] = useState('about');
+    const [addCommentVisible, setAddCommentVisible] = useState(false);
+    const [addSalaryVisible, setAddSalaryVisible] = useState(false);
+    const [addInterviewVisible, setAddInterviewVisible] = useState(false);
+    const [comments, setComments] = useState([]);
+    const [salaries, setSalaries] = useState([]);
+    const [interviews, setInterviews] = useState([]);
 
-    const company = {
-        id: id,
-        name: name,
-        rate: 4.1,
-        impressionNumber: 83,
-        cities: ['Novi Sad', 'Beograd'],
-        employeeNumber: '251-500',
-        industry: 'IT Services',
-        website: 'www.synechron.com',
-        origin: 'SAD',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    const company = location.state.company;
+
+    function toggleAddCommentModal() {
+        setAddCommentVisible(!addCommentVisible);
     }
+
+    function toggleAddSalaryModal() {
+        setAddSalaryVisible(!addSalaryVisible);
+    }
+
+    function toggleAddInterviewModal() {
+        setAddInterviewVisible(!addInterviewVisible);
+    }
+
+    async function reloadComments(){
+        const results = await getCommentsByCompany(company.id);
+        setComments(results);
+    }
+
+    async function reloadSalaries(){
+        const results = await getSalariesByCompany(company.id);
+        setSalaries(results);
+    }
+
+    async function reloadInterviews(){
+        const results = await getInterviewsByCompany(company.id);
+        setInterviews(results);
+    }
+
+    useEffect(() => {
+        async function getComments(){
+            const results = await getCommentsByCompany(company.id);
+            setComments(results);
+        }
+
+        async function getSalaries(){
+            const results = await getSalariesByCompany(company.id);
+            setSalaries(results);
+        }
+
+        async function getInterviews(){
+            const results = await getInterviewsByCompany(company.id);
+            setInterviews(results);
+        }
+
+        getInterviews();
+        getSalaries();
+        getComments();
+    }, [company])
 
     return (
         <div>
@@ -37,30 +83,34 @@ function CompanyProfile() {
             <div className={classes.page}>
                 <div className={classes.mainInfoWrapper}>
                     <div className={classes.mainInfo}>
-                        <img src={Synechron} alt={name} className={classes.profilePhoto} />
+                        <img src={Synechron} alt={"Company logo"} className={classes.profilePhoto} />
                         <div className={classes.profileInfo}>
                             <h2 className={classes.companyName}>{company.name}</h2>
                             <div className={classes.stars}>
-                                <StarRate rate={company.rate} />
+                                <StarRate rate={4} />
                                 <p className={classes.rate}>{company.rate}</p>
                             </div>
                             <p className={classes.avgRate}>(average rate)</p>
                         </div>
                     </div>
 
-                    {activeTab === 'comments' ? <button className={classes.button}>Leave a comment</button> : null}
-                    {activeTab === 'salary' ? <button className={classes.button}>Leave a salary information</button> : null}
-                    {activeTab === 'interview' ? <button className={classes.button}>Leave an interview impression</button> : null}
+                    {activeTab === 'comments' ? <button className={classes.button} onClick={toggleAddCommentModal}>Leave a comment</button> : null}
+                    {activeTab === 'salary' ? <button className={classes.button} onClick={toggleAddSalaryModal}>Leave a salary information</button> : null}
+                    {activeTab === 'interview' ? <button className={classes.button} onClick={toggleAddInterviewModal}>Leave an interview impression</button> : null}
                 </div>
 
                 <CompanyProfileNavigation activeTab={activeTab} setactiveTab={(tab) => setactiveTab(tab)} />
 
                 {activeTab === 'about' ? <CompanyProfileAbout company={company} /> : null}
-                {activeTab === 'comments' ? <CompanyProfileComments companyId={company.id} /> : null}
-                {activeTab === 'salary' ? <CompanyProfileSalary ompanyId={company.id} /> : null}
-                {activeTab === 'interview' ? <CompanyProfileInterview companyId={company.id} /> : null}
+                {activeTab === 'comments' ? <CompanyProfileComments comments={comments} /> : null}
+                {activeTab === 'salary' ? <CompanyProfileSalary companyId={company.id} salaries={salaries} /> : null}
+                {activeTab === 'interview' ? <CompanyProfileInterview comments={interviews} /> : null}
                 {activeTab === 'jobs' ? <CompanyProfileJobs companyId={company.id} /> : null}
             </div>
+
+            {addCommentVisible && <AddComment toggleAddComment={toggleAddCommentModal} company={company} reload={reloadComments}/>}
+            {addSalaryVisible && <AddSalary toggleAddSalary={toggleAddSalaryModal} company={company} reload={reloadSalaries}/>}
+            {addInterviewVisible && <AddInterview toggleAddInterview={toggleAddInterviewModal} company={company} reload={reloadInterviews}/>}
         </div>
     )
 }

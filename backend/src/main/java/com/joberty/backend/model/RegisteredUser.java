@@ -16,10 +16,10 @@ import java.util.List;
 @Builder
 public class RegisteredUser extends BaseEntity implements UserDetails {
 
-    @Column(nullable = false)
+    @Column
     private String firstName;
 
-    @Column(nullable = false)
+    @Column
     private String lastName;
 
     @Column(unique = true, nullable = false)
@@ -28,7 +28,7 @@ public class RegisteredUser extends BaseEntity implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column
     private Gender gender;
 
     @Column(name = "enabled")

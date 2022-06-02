@@ -36,6 +36,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                     }
                 }
             }
+
         } catch (ExpiredJwtException ex) {}
 
         filterChain.doFilter(request, response);

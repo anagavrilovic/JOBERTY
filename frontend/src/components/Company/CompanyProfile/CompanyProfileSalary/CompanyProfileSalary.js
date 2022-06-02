@@ -1,14 +1,13 @@
 import React from 'react';
 import Salary from '../../../Salaries/Salary/Salary';
 
-function CompanyProfileSalary() {
-    const salaries = [1, 2, 3, 4];
+function CompanyProfileSalary({companyId, salaries}) {
 
     return (
         <div>
             {
                 salaries.map((s) => {
-                    return <Salary key={s}/> 
+                    return <Salary key={s.id} salary={s}/> 
                 })
             }
         </div>

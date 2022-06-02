@@ -22,7 +22,7 @@ function CompanyProfileAbout(props) {
                         <p className={classes.textBold}>Industry:</p>
                     </div>
                     <div className={classes.value}>
-                        <p>{props.company.employeeNumber}</p>
+                        <p>{props.company.size}</p>
                         <p>{props.company.industry}</p>
                     </div>
                 </div>
@@ -33,8 +33,8 @@ function CompanyProfileAbout(props) {
                         <p className={classes.textBold}>Offices in:</p>
                     </div>
                     <div className={classes.value}>
-                        <p>{props.company.origin}</p>
-                        <p>{props.company.cities.map((city) => { return <span key={city}>{city + ", "}</span> })}</p>
+                        <p>US</p>
+                        <p>Belgrade, Novi Sad</p>
                     </div>
                 </div>
             </div>
