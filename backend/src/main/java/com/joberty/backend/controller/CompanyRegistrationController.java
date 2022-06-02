@@ -19,7 +19,7 @@ public class CompanyRegistrationController {
     private final CompanyRegistrationService companyRegistrationService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+   // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<CompanyRegistrationRequest>> getAllRegistrationRequests() {
         List<CompanyRegistrationRequest> registrationRequests = companyRegistrationService.getAllRegistrationRequests();
         return new ResponseEntity<>(registrationRequests, HttpStatus.OK);
@@ -32,14 +32,14 @@ public class CompanyRegistrationController {
     }
 
     @GetMapping("/approve/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> approveRegistrationRequest(@PathVariable("id") Integer requestId) {
         companyRegistrationService.approveRegistrationRequest(requestId);
         return new ResponseEntity<>("Registration request approved!", HttpStatus.CREATED);
     }
 
     @GetMapping("/reject/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> rejectRegistrationRequest(@PathVariable("id") Integer requestId) {
         companyRegistrationService.rejectRegistrationRequest(requestId);
         return new ResponseEntity<>("Registration request rejected!", HttpStatus.OK);
