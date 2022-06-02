@@ -15,10 +15,15 @@ function AllRegistrationRequests() {
         getAll();
     }, [])
 
+    async function reloadRequests(){
+        const results = await getAllRegistrationRequests();
+        setRequests(results);
+    }
+
     return (
         <div className={classes.component} > {
             requests.map((company) => {
-                return <RegistrationRequest key={company.name} company={company} />
+                return <RegistrationRequest key={company.name} company={company} reload={reloadRequests} />
             })
         }
         </div>

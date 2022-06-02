@@ -3,16 +3,20 @@ import classes from './RegistrationRequest.module.css';
 import Synechron from '../../../images/synechron.png';
 import { approveRequest, rejectRequest } from '../../../api/CompanyRegistrationApi'
 
-function RegistrationRequest({company}) {
+function RegistrationRequest({company, reload}) {
 
     function approveRequestHandler(event) {
         event.preventDefault();
-        approveRequest(company.id);
+        approveRequest(company.id).then(() => {
+            reload();
+        });
     }
 
     function rejectRequestHandler(event) {
         event.preventDefault();
-        rejectRequest(company.id);
+        rejectRequest(company.id).then(() => {
+            reload();
+        });
     }
 
     return (

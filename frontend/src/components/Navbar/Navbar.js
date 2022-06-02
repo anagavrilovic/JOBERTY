@@ -46,7 +46,7 @@ function Navbar() {
                         Salaries
                     </Link>
                     <Link to="/employers" className={classes.link}>
-                        For Employers
+                        Registration requests
                     </Link>
                     <Link to="/" className={classes.link}>
                         <FontAwesomeIcon icon={faRightFromBracket} onClick={handleLogOut} />
@@ -71,7 +71,7 @@ function Navbar() {
                             Salaries
                         </Link>
                         <Link to="/employers" className={classes.mobileLink} onClick={() => setMobileNavClicked(false)}  >
-                            For Employers
+                            Registration requests
                         </Link>
                         <Link to="/" className={classes.mobileLink}>
                             LogOut <FontAwesomeIcon icon={faRightFromBracket} />
