@@ -11,7 +11,7 @@ function Salaries() {
                 <SalariesFilter />
             </div>
             <div className={classes.content}>
-                <Salary/>
+                {/* <Salary/> */}
                 <p>* The values shown are based on the entered "Salary and benefits" of the Joberty user.</p>
                 <p className={classes.boldText}>You can also research salaries on individual company profiles in the section: "Salaries and benefits".</p>
             </div>
