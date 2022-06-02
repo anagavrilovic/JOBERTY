@@ -87,8 +87,8 @@ function CompanyProfile() {
                         <div className={classes.profileInfo}>
                             <h2 className={classes.companyName}>{company.name}</h2>
                             <div className={classes.stars}>
-                                <StarRate rate={4} />
-                                <p className={classes.rate}>{company.rate}</p>
+                                <StarRate rate={location.state.companyRate} />
+                                <p className={classes.rate}>{location.state.companyRate}</p>
                             </div>
                             <p className={classes.avgRate}>(average rate)</p>
                         </div>

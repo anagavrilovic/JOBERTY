@@ -8,23 +8,23 @@ function Company({company}) {
     const navigate = useNavigate();
 
     function handleViewCompany() {
-        navigate(`/company/${company.id}/${company.name}`, {state: {company: company }});
+        navigate(`/company/${company.company.id}/${company.company.name}`, {state: {company: company.company, companyRate: company.companyRate }});
     }
 
     return (
         <div className={classes.component}>
             <div className={classes.companyName}>
-                <img src={Synechron} alt={company.name} />
-                <h3>{company.name}</h3>
+                <img src={Synechron} alt={company.company.name} />
+                <h3>{company.company.name}</h3>
             </div>
             <div className={classes.impressions}>
                 <div className={classes.rate}>
                     <div className={classes.stars}>
-                        <StarRate rate={4} />
+                        <StarRate rate={company.companyRate} />
                     </div>
-                    <p className={classes.textBold}>{company.rate}</p>
+                    <p className={classes.textBold}>{company.companyRate}</p>
                 </div>
-                <p className={classes.textBold}>10 impressions</p>
+                <p className={classes.textBold}>{company.numberOfComments} impressions</p>
             </div>
             <div className={classes.about}>
                 <div className={classes.shortAbout}>
@@ -34,12 +34,12 @@ function Company({company}) {
                         <p>Industry:</p>
                     </div>
                     <div className={classes.shortAboutValues}>
-                        <p className={classes.textBold}>{company.website}</p>
-                        <p className={classes.textBold}>{company.size}</p>
-                        <p className={classes.textBold}>{company.industry}</p>
+                        <p className={classes.textBold}>{company.company.website}</p>
+                        <p className={classes.textBold}>{company.company.size}</p>
+                        <p className={classes.textBold}>{company.company.industry}</p>
                     </div>
                 </div>
-                <div className={classes.description}>{company.description}</div>
+                <div className={classes.description}>{company.company.description}</div>
             </div>
             <div className={classes.buttonDetails}>
                 <button className={classes.button} onClick={handleViewCompany}>View Company</button>

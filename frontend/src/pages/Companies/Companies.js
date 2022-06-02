@@ -3,9 +3,21 @@ import Caption from "../../components/Caption/Caption";
 import CompanySearch from "../../components/Company/CompanySearch/CompanySearch";
 import CompanyFilter from "../../components/Company/CompanyFilter/CompanyFilter";
 import AllCompanies from "../../components/Company/AllCompanies/AllCompanies";
+import React, { useEffect, useState } from 'react';
+import { getAllCompanies } from "../../api/CompanyApi";
 
 function Companies() {
-    const companyNumber = 700;
+
+    const [companies, setCompanies] = useState([]);
+
+    useEffect(() => {
+        async function getAll() {
+            const results = await getAllCompanies();
+            setCompanies(results);
+        }
+
+        getAll();
+    }, [])
 
     return (
         <div className={classes.page}>
@@ -17,7 +29,7 @@ function Companies() {
 
             <div className={classes.content}>
                 <div className={classes.contentHeader}>
-                    <p>{companyNumber} Companies</p>
+                    <p>{companies.length} Companies</p>
 
                     <div className={classes.sort}>
                         <p>Sort:</p>
@@ -28,7 +40,7 @@ function Companies() {
                     </div>
                 </div>
 
-                <AllCompanies />
+                <AllCompanies companies={companies}/>
             </div>
         </div>
     );
