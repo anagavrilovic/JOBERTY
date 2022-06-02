@@ -2,15 +2,6 @@ import React from 'react';
 import classes from './Salary.module.css';
 
 function Salary({salary}) {
-    // const salary = {
-    //     workPosition: 'DevOps Engineer',
-    //     seniority: 'Medior',
-    //     employmentForm: 'Full time',
-    //     minSallary: 508,
-    //     maxSallary: 2200,
-    //     numOfSalaries: 22
-    // }
-
     function formatEmployment(emp){
         emp = emp.charAt(0).toUpperCase() + emp.slice(1);
         emp = emp.replace("_", " ");
