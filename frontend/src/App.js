@@ -8,11 +8,13 @@ import Companies from './pages/Companies/Companies';
 import Jobs from './pages/Jobs/Jobs';
 import Salaries from './pages/Salaries/Salaries';
 import Employers from './pages/Employers/Employers';
+import ProtectedRoute from './ProtectedRoute'
 
 import './App.css';
 import CompanyProfile from './components/Company/CompanyProfile/CompanyProfile/CompanyProfile';
 
 function App() {
+
     const location = useLocation();
 
     return (
@@ -24,7 +26,7 @@ function App() {
                 <Route path='/companies' element={ <Companies /> } />
                 <Route path='/jobs' element={ <Jobs /> } />
                 <Route path='/salaries' element={ <Salaries /> } />
-                <Route path='/employers' element={ <Employers /> } />
+                <Route path='/employers' element={ <ProtectedRoute Component = {Employers} Roles="['ROLE_ADMIN]" /> } />
                 <Route path='/company/:id/:name' element={ <CompanyProfile /> } />
             </Routes>
         </div>
