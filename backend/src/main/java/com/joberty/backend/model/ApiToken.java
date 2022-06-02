@@ -21,4 +21,7 @@ public class ApiToken extends BaseEntity{
 
     @Column(nullable = false)
     private LocalDateTime expiringDate;
+
+    @Column(nullable = false)
+    private String email;
 }

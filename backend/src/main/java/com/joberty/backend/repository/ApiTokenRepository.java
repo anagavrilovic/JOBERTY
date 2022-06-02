@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ApiTokenRepository extends JpaRepository<ApiToken, Integer> {
 
+    ApiToken findByEmail(String email);
 }

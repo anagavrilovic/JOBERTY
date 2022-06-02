@@ -33,8 +33,9 @@ public class JmsConsumerServiceImpl implements JmsConsumerService {
                 TextMessage objectMessage = (TextMessage) messageReceived;
                 System.out.println("Message received " + objectMessage.getText());
                 String token = objectMessage.getText();
-                if (tokenIsValid(token)) {
-                    ApiToken apiToken = new ApiToken(token, LocalDateTime.now().plusHours(1));
+                RegisteredUser user =getUserByToken(token);
+                if (user != null) {
+                    ApiToken apiToken = new ApiToken(token, LocalDateTime.now().plusHours(1),user.getEmail());
                     tokenRepository.save(apiToken);
                }
             }
@@ -43,7 +44,7 @@ public class JmsConsumerServiceImpl implements JmsConsumerService {
         }
     }
 
-    private boolean tokenIsValid(String token) {
+    private RegisteredUser getUserByToken(String token) {
         String[] chunks = token.split("\\.");
         Base64.Decoder decoder = Base64.getUrlDecoder();
 //      String header = new String(decoder.decode(chunks[0]));
@@ -51,7 +52,7 @@ public class JmsConsumerServiceImpl implements JmsConsumerService {
         DecodedToken tokenData=new Gson().fromJson(payload, DecodedToken.class);
         System.out.println("Email :"+tokenData.getUsername());
         RegisteredUser user=userRepository.findByEmail(tokenData.getUsername());
-        if(user == null && !user.getRole().getName().equals("ROLE_COMPANY_OWNER")) return false;
-        return true;
+        if(user == null && !user.getRole().getName().equals("ROLE_COMPANY_OWNER")) return null;
+        return user;
     }
 }
