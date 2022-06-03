@@ -1,8 +1,11 @@
 .component {
-    width: 32%;
+    width: 100%;
     background-color: white;
-    margin: 1rem 0;
     box-shadow: 2px 2px 15px #cfcfcf;
+}
+
+.component:hover {
+    box-shadow: 2px 2px 15px #a5a5a5;
 }
 
 .companyName {
@@ -85,16 +88,4 @@
     color: var(--dark-yellow);
     background-color: #fff4df;
     border: 1px solid var(--dark-yellow);
-}
-
-@media(max-width: 65rem) {
-    .component {
-        width: 48%;
-    }
-}
-
-@media(max-width: 45rem) {
-    .component {
-        width: 100%;
-    }
 }

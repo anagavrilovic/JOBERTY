@@ -17,8 +17,16 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
 
     @Override
-    public Comment save(CommentDto commentDto) {
+    public Comment save(CommentDto commentDto) throws UnsupportedOperationException {
         Comment comment = CustomMapper.mapComment(commentDto);
+
+        Collection<Comment> commentsByUserAndCompany = commentRepository.findCommentsByUserAndCompany(
+                comment.getCompany().getId(),
+                comment.getUser().getId()
+        );
+
+        if(commentsByUserAndCompany.size() > 0) throw new UnsupportedOperationException();
+
         return commentRepository.save(comment);
     }
 

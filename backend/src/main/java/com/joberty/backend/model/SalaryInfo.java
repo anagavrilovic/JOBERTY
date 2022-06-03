@@ -23,13 +23,9 @@ public class SalaryInfo extends BaseEntity{
     @JoinColumn(name = "user_id")
     private RegisteredUser user;
 
-
-
     @Column(nullable = false)
     private double amountInEur;
 
     @Column(nullable = false)
     private Date creationDate;
-
-
 }

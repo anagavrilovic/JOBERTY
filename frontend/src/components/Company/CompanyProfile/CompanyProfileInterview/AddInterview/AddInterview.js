@@ -67,6 +67,9 @@ const AddInterview = ({ company, toggleAddInterview, reload }) => {
             reload();
             toggleAddInterview();
         })
+        .catch((e) => {
+            setError(e.response.data.message);
+        })
     }
 
     return (
@@ -113,14 +116,15 @@ const AddInterview = ({ company, toggleAddInterview, reload }) => {
 
                         <div className={classes.fieldTitle}>
                             <span className={classes.ratingTitle}> Overall rating </span>
+                            <InteractiveStarRate ratingChanged={ratingChanged} />
                         </div>
-                        <InteractiveStarRate ratingChanged={ratingChanged} />
+                        
                         <div className={classes.error}> {error} </div>
 
                     </div>
 
                     <div className={classes.footer}>
-                        <input type="submit" className={classes.saveButton} value="Save" onClick={onSaveInterviewInformation}/>
+                        <input type="submit" className={classes.button} value="Save" onClick={onSaveInterviewInformation}/>
                     </div>
                 </form>
             </div>

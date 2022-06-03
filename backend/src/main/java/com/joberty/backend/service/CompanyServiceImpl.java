@@ -1,10 +1,15 @@
 package com.joberty.backend.service;
 
+import com.joberty.backend.dto.CompanyCommentDto;
+import com.joberty.backend.dto.CompanyDto;
 import com.joberty.backend.model.Company;
+import com.joberty.backend.repository.CommentRepository;
 import com.joberty.backend.repository.CompanyRepository;
 import com.joberty.backend.service.interfaces.CompanyService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import com.joberty.backend.model.CompanyRegistrationRequest;
 import com.joberty.backend.service.interfaces.RegisteredUserService;
@@ -16,12 +21,22 @@ import org.modelmapper.ModelMapper;
 public class CompanyServiceImpl implements CompanyService {
 
     private final CompanyRepository companyRepository;
+    private final CommentRepository commentRepository;
     private final RegisteredUserService userService;
     private final ModelMapper modelMapper;
 
     @Override
-    public Collection<Company> findAll() {
-        return companyRepository.findAll();
+    public Collection<CompanyDto> findAll() {
+        Collection<Company> companies = companyRepository.findAll();
+        
+        Collection<CompanyDto> companyDtos = new ArrayList<>();
+        for (Company c : companies) {
+            CompanyCommentDto companyComment = commentRepository.findCommentDataOfCompany(c.getId());
+            CompanyDto dto = new CompanyDto(c, companyComment.getCompanyRate(), companyComment.getNumberOfComments());
+            companyDtos.add(dto);
+        }
+        
+        return companyDtos;
     }
 
     @Override

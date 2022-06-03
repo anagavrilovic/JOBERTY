@@ -1,5 +1,6 @@
 package com.joberty.backend.controller;
 
+import com.joberty.backend.dto.CompanyDto;
 import com.joberty.backend.model.Comment;
 import com.joberty.backend.model.Company;
 import com.joberty.backend.service.interfaces.CompanyService;
@@ -22,8 +23,8 @@ public class CompanyController {
     private final CompanyService companyService;
 
     @GetMapping("/all")
-    public ResponseEntity<Collection<Company>> findAll(){
-        Collection<Company> companies = companyService.findAll();
+    public ResponseEntity<Collection<CompanyDto>> findAll(){
+        Collection<CompanyDto> companies = companyService.findAll();
         return new ResponseEntity<>(companies, HttpStatus.OK);
     }
 }

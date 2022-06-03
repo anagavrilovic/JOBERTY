@@ -7,7 +7,7 @@ function CompanyProfileSalary({companyId, salaries}) {
         <div>
             {
                 salaries.map((s) => {
-                    return <Salary key={s.id} salary={s}/> 
+                    return <Salary key={s.title.toString() + s.formOfEmployment.toString() + s.seniority.toString()} salary={s}/> 
                 })
             }
         </div>

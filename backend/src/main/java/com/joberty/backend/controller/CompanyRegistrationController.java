@@ -26,7 +26,7 @@ public class CompanyRegistrationController {
     }
 
     @PostMapping
-    public ResponseEntity<String> registerCompany (@RequestBody CompanyRegistrationRequest request) {
+    public ResponseEntity<String> registerCompany(@RequestBody CompanyRegistrationRequest request) {
         CompanyRegistrationRequest createdRequest = companyRegistrationService.saveRegistrationRequest(request);
         return new ResponseEntity<>("Registration request successfully sent to administrator", HttpStatus.CREATED);
     }

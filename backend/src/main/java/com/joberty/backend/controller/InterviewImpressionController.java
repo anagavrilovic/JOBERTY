@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collection;
 
@@ -22,8 +23,12 @@ public class InterviewImpressionController {
 
     @PostMapping
     public ResponseEntity<InterviewImpression> saveInterviewImpression(@RequestBody InterviewImpressionDto interviewImpressionDto){
-        InterviewImpression interviewImpression = interviewImpressionService.save(interviewImpressionDto);
-        return new ResponseEntity<>(interviewImpression, HttpStatus.CREATED);
+        try {
+            InterviewImpression interviewImpression = interviewImpressionService.save(interviewImpressionDto);
+            return new ResponseEntity<>(interviewImpression, HttpStatus.CREATED);
+        } catch (UnsupportedOperationException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You already left impression for this work position.");
+        }
     }
 
     @GetMapping("/all/{id}")

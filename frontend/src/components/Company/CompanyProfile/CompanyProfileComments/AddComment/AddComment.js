@@ -44,6 +44,9 @@ const AddComment = ({ toggleAddComment, company, reload }) => {
         addComment(comment).then(() => {
             reload();
             toggleAddComment();
+        })
+        .catch((e) => {
+            setError(e.response.data.message);
         });
     }
 
@@ -69,8 +72,9 @@ const AddComment = ({ toggleAddComment, company, reload }) => {
 
                         <div className={classes.fieldTitle}>
                             <span className={classes.ratingTitle}> Leave a rating </span>
+                            <InteractiveStarRate ratingChanged={ratingChanged} />
                         </div>
-                        <InteractiveStarRate ratingChanged={ratingChanged} />
+                        
 
                         <div className={classes.row}>
                             <input type="checkbox" className={classes.checkbox} id="commentIsCurrentlyWorking" onChange={onCommentChange}></input>
@@ -80,7 +84,7 @@ const AddComment = ({ toggleAddComment, company, reload }) => {
                     </div>
 
                     <div className={classes.footer}>
-                        <input type="submit" className={classes.saveButton} value="Save" onClick={onCommentSave}/>
+                        <input type="submit" className={classes.button} value="Save" onClick={onCommentSave}/>
                     </div>
                 </form>
             </div>

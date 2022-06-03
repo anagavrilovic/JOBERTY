@@ -39,6 +39,9 @@ const AddSalary = ({ toggleAddSalary, company, reload }) => {
             reload();
             toggleAddSalary();
         })
+        .catch((e) => {
+            setError(e.response.data.message);
+        });
 
     }
 
@@ -67,7 +70,7 @@ const AddSalary = ({ toggleAddSalary, company, reload }) => {
                     </div>
 
                     <div className={classes.footer}>
-                        <input type="submit" className={classes.saveButton} value="Save" onClick={onSaveSalaryInformation}/>
+                        <input type="submit" className={classes.button} value="Save" onClick={onSaveSalaryInformation}/>
                     </div>
                 </form>
             </div>
