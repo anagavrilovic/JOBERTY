@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class DecodedToken {
-    public String username;
+    public String email;
     public String role;
     public boolean authorized;
     public String exp;
