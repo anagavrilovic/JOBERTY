@@ -61,6 +61,7 @@ public class WebSecurityConfig  {
                 .antMatchers("/interview/**").permitAll()
                 .antMatchers("/comment/**").permitAll()
                 .antMatchers("/company/**").permitAll()
+                .antMatchers("/job-offer/**").permitAll()
                 .antMatchers("/position/**").permitAll()
                 .anyRequest().authenticated()
                 .and()

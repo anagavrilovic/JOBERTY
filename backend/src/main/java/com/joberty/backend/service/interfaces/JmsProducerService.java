@@ -4,5 +4,5 @@ import com.joberty.backend.model.JobOffer;
 
 public interface JmsProducerService {
 
-    boolean sendJobOffer(JobOffer jobOffer, String email);
+    boolean sendJobOffer(Integer jobOfferId, String email);
 }

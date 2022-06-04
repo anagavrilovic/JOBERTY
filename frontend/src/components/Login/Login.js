@@ -25,6 +25,7 @@ function Login(props) {
         AuthentificationService.login(credentials)
         .then((response) => {
             dispatch(login(response.data));
+            localStorage.setItem('token',response.data.accessToken)
             navigate("/home");
         })
         .catch(() => {
