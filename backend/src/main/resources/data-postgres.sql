@@ -100,3 +100,15 @@ INSERT INTO salary_info(amount_in_eur, creation_date, position_id, user_id) VALU
 INSERT INTO salary_info(amount_in_eur, creation_date, position_id, user_id) VALUES (3800.0, current_timestamp, 10, 4);
 INSERT INTO salary_info(amount_in_eur, creation_date, position_id, user_id) VALUES (2700.0, current_timestamp, 11, 5);
 INSERT INTO salary_info(amount_in_eur, creation_date, position_id, user_id) VALUES (2800.0, current_timestamp, 11, 6);
+
+-- Synechron job offers
+INSERT INTO job_offer(employment_type, job_description, position, prerequisites, published, company_id, seniority, expires)
+    VALUES (0, 'Software engineer with focus on cloud services', 'Backend software engineer', 'AWS,JAVA,DOCKER,KUBERNETES', current_timestamp, 1, 0, current_date + interval '3 days');
+INSERT INTO job_offer(employment_type, job_description, position, prerequisites, published, company_id, seniority, expires)
+    VALUES (0, 'Software engineer with focus on UI', 'Frontend software engineer', 'HTML,CSS,JAVASCRIPT,REACT', current_timestamp, 1, 1, current_date + interval '5 days');
+
+-- Levi9 job offers
+INSERT INTO job_offer(employment_type, job_description, position, prerequisites, published, company_id, seniority, expires)
+    VALUES (0, 'Software engineer with focus on cloud services', 'Backend software engineer', 'AWS,JAVA,DOCKER,KUBERNETES', current_timestamp, 2, 0, current_date + interval '3 days');
+INSERT INTO job_offer(employment_type, job_description, position, prerequisites, published, company_id, seniority, expires)
+    VALUES (0, 'Software engineer with focus on UI', 'Frontend software engineer', 'HTML,CSS,JAVASCRIPT,REACT', current_timestamp, 2, 1, current_date + interval '5 days');

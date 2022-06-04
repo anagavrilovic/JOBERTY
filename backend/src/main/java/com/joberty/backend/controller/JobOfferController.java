@@ -3,6 +3,7 @@ package com.joberty.backend.controller;
 
 import com.joberty.backend.dto.JobOfferDto;
 import com.joberty.backend.dto.SalaryInfoDto;
+import com.joberty.backend.model.JobOffer;
 import com.joberty.backend.model.SalaryInfo;
 import com.joberty.backend.service.interfaces.JmsProducerService;
 import com.joberty.backend.service.interfaces.JobOfferService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
+import java.util.Collection;
 
 @RestController
 @RequestMapping(value = "/job-offer", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -39,5 +41,17 @@ public class JobOfferController {
         } catch (UnsupportedOperationException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There was and error while creating job.");
         }
+    }
+
+    @GetMapping("all/{email}")
+    public ResponseEntity<Collection<JobOffer>> getByCompany(@PathVariable String email){
+        Collection<JobOffer> jobOffers = jobOfferService.findByCompany(email);
+        return new ResponseEntity<>(jobOffers, HttpStatus.OK);
+    }
+
+    @GetMapping("all")
+    public ResponseEntity<Collection<JobOffer>> getAll(){
+        Collection<JobOffer> jobOffers = jobOfferService.findAll();
+        return new ResponseEntity<>(jobOffers, HttpStatus.OK);
     }
 }
