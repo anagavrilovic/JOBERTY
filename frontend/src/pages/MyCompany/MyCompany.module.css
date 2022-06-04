@@ -11,6 +11,7 @@
 
 .inputForm {
     text-align: left;
+    margin-bottom: 1rem;
 }
 
 .inputLabel {
@@ -46,7 +47,7 @@
 .button {
     width: 30%;
     align-self: center;
-    margin-top: 0.6rem;
+    margin-top: 1rem;
     margin-bottom: 1rem;
     height: 3rem;
     font-size: 1rem;
@@ -67,7 +68,7 @@
 .buttonPassword {
     width: 30%;
     align-self: center;
-    margin-top: 0.6rem;
+    margin-top: 1rem;
     margin-bottom: 1rem;
     height: 3rem;
     font-size: 1rem;

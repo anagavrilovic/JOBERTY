@@ -4,22 +4,14 @@ import { useSelector } from 'react-redux';
 
 import Caption from "../../components/Caption/Caption";
 
-import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import schema from "../../validationSchemas/RegisterCompanyValidationSchema";
 import { axiosInstance } from "../../api/AxiosInstance"
 
 function MyCompany() {
 
     const [company, setCompany] = useState();
     const [editMode, setEditMode] = useState(false);
-    const [serverError, setServerError] = useState(false);
 
     const user = useSelector((state) => state.user.value);
-
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: yupResolver(schema)
-    });
 
     useEffect(() => {
         const config = {
@@ -35,21 +27,28 @@ function MyCompany() {
                 axiosInstance.get(`/company/${response.data.email}`)
                     .then((response1) => {
                         setCompany(response1.data);
+                        console.log(company);
                     })
             })
     }, []);
 
-    function onChange(e) {
-        this.setState({ [e.target.name]: e.target.value })
+
+    function handleChange(e) {
+        setCompany(prevState => ({ ...prevState, [e.target.name]: e.target.value }))
+        console.log(e.target.value)
     }
 
-    function changeEditMode(e) {
+    function handleEditProfile(e) {
         e.preventDefault();
-        setEditMode(true)
-    }
 
-    function handleEditProfile(data) {
-        console.log(data);
+        if (!editMode) {
+            setEditMode(true);
+            return;
+        }
+
+        console.log(company);
+
+        setEditMode(false);
     }
 
     return (
@@ -58,77 +57,68 @@ function MyCompany() {
                 <Caption caption="My Company" />
             </div>
             <div>
-                <form onSubmit={editMode ? handleSubmit(handleEditProfile) : changeEditMode} className={classes.content}>
+                <form className={classes.content}>
                     <div className={classes.contentRow}>
                         <div className={classes.inputForm}>
                             <p className={classes.inputLabel}>Company Name</p>
-                            <input type="text" placeholder='Company Name' disabled={!editMode}
-                                value={company ? company.name : null} 
-                                className={`${classes.input} ${errors.companyName ? classes.errorInput : ""}`}
-                                {...register("companyName")} />
-                            <div className={classes.errorMessage}>{errors.companyName?.message}</div>
+                            <input type="text" placeholder='Company Name' disabled={!editMode} 
+                                className={classes.input} required
+                                name="name" value={company ? company.name : ''} onChange={handleChange}/>
                         </div>
 
                         <div className={classes.inputForm}>
                             <p className={classes.inputLabel}>Email</p>
                             <input type="text" placeholder='Email' disabled={true}
-                                className={`${classes.input} ${errors.email ? classes.errorInput : ""}`}
-                                {...register("email")} />
-                            <div className={classes.errorMessage}>{errors.email?.message}</div>
+                                className={classes.input} required
+                                name="email" value={company ? company.email : ''}/>
                         </div>
 
                         <div className={classes.inputForm}>
                             <p className={classes.inputLabel}>Website</p>
                             <input type="text" placeholder='Website' disabled={!editMode}
-                                className={`${classes.input} ${errors.website ? classes.errorInput : ""}`}
-                                {...register("website")} />
-                            <div className={classes.errorMessage}>{errors.website?.message}</div>
+                                className={classes.input} required 
+                                name="website" value={company ? company.website : ''} onChange={handleChange}/>
                         </div>
 
                         <div className={classes.inputForm}>
                             <p className={classes.inputLabel}>Description</p>
                             <textarea type="text" placeholder='Description' disabled={!editMode}
-                                className={`${classes.textarea} ${errors.description ? classes.errorTextarea : ""}`}
-                                {...register("description")} />
-                            <div className={classes.errorMessage}>{errors.description?.message}</div>
+                                className={classes.textarea} required
+                                name="description" value={company ? company.description : ''} onChange={handleChange}/>
                         </div>
                     </div>
                     <div className={classes.contentRow}>
                         <div className={classes.inputForm}>
                             <p className={classes.inputLabel}>Industry</p>
                             <input type="text" placeholder='Industry' disabled={!editMode}
-                                className={`${classes.input} ${errors.industry ? classes.errorInput : ""}`}
-                                {...register("industry")} />
-                            <div className={classes.errorMessage}>{errors.industry?.message}</div>
+                                className={classes.input} required
+                                name="industry" value={company ? company.industry : ''} onChange={handleChange}/>
                         </div>
 
                         <div className={classes.inputForm}>
                             <p className={classes.inputLabel}>Origin</p>
                             <input type="text" placeholder='Origin' disabled={!editMode}
-                                className={`${classes.input} ${errors.origin ? classes.errorInput : ""}`}
-                                {...register("origin")} />
-                            <div className={classes.errorMessage}>{errors.origin?.message}</div>
+                                className={classes.input} required 
+                                name="origin" value={company ? company.origin : ''} onChange={handleChange}/>
                         </div>
 
                         <div className={classes.inputForm}>
                             <p className={classes.inputLabel}>Offices in</p>
                             <input type="text" placeholder='Offices in' disabled={!editMode}
-                                className={`${classes.input} ${errors.cities ? classes.errorInput : ""}`}
-                                {...register("cities")} />
-                            <div className={classes.errorMessage}>{errors.cities?.message}</div>
+                                className={classes.input} required 
+                                name="cities" value={company ? company.cities : ''} onChange={handleChange}/>
                         </div>
 
                         <div className={classes.inputForm}>
                             <p className={classes.inputLabel}>Number of Employees</p>
                             <input type="text" placeholder='Number of Employees' disabled={!editMode}
-                                className={`${classes.input} ${errors.companySize ? classes.errorInput : ""}`}
-                                {...register("companySize")} />
-                            <div className={classes.errorMessage}>{errors.companySize?.message}</div>
+                                className={classes.input} required 
+                                name="size" value={company ? company.size : ''} onChange={handleChange}/>
                         </div>
 
                         <div className={classes.buttons}>
                             <button className={classes.buttonPassword}>Change password</button>
-                            <button type='submit' className={classes.button}>
+                            <button className={classes.button} onClick={handleEditProfile}>
                                 {editMode ? "Save changes" : "Edit profile"}
                             </button>
                         </div>
