@@ -11,4 +11,8 @@ public interface CompanyService {
     Collection<CompanyDto> findAll();
 
     Company save(CompanyRegistrationRequest companyRequest);
+
+    Company getByEmail(String email);
+
+    Company update(Company company);
 }

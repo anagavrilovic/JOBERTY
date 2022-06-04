@@ -10,16 +10,19 @@ INSERT INTO role(id, name) VALUES (3, 'ROLE_USER');
 
 -- Users
 INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('admin@gmail.com', true, 'Elon', 0, 'Musk', '$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW', 1);
-INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('srdjan@gmail.com', true, 'Srdjan', 0, 'Sukovic', '123456', 3);
-INSERT INTO registered_user(first_name,last_name,email,password,gender,enabled,role_id) VALUES('Stefan','Ljubovic','stefanljubovic@gmail.com','$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW',0,true,2);
-INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('srdjan.s@gmail.com', true, 'Serhio', 0, 'Ramos', '123456', 3);
-INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('ana@gmail.com', true, 'Ana', 1, 'Gavrilovic', '123456', 3);
-INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('marija@gmail.com', true, 'Marija', 1, 'Kljestan', '123456', 3);
+INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('srdjan@gmail.com', true, 'Srdjan', 0, 'Sukovic', '$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW', 3);
+INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('srdjan.s@gmail.com', true, 'Serhio', 0, 'Ramos', '$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW', 3);
+INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('ana@gmail.com', true, 'Ana', 1, 'Gavrilovic', '$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW', 3);
+INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('marija@gmail.com', true, 'Marija', 1, 'Kljestan', '$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW', 3);
+INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('stefanljubovic@gmail.com', true, 'Ljuba', 0, 'Ljubovic', '$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW', 2);
+INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('synDragan@synechron.com', true, 'Synechron', 0, '', '$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW', 2);
+INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('leviNiner@levi9.com', true, 'Levi9', 0, '', '$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW', 2);
+INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('goooogle@google.com', true, 'Google', 0, '', '$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW', 2);
 
 -- Companies
-INSERT INTO company(description, industry, name, size, email, website) VALUES ('Some description', 'IT', 'Synechron', 10000, 'synDragan', 'syn.dragan.com');
-INSERT INTO company(description, industry, name, size, email, website) VALUES ('Some other description', 'IT', 'Levi9', 1000, 'leviNiner', 'levi.nine.com');
-INSERT INTO company(description, industry, name, size, email, website) VALUES ('Google description', 'IT', 'Google', 100000, 'goooogle', 'google.com');
+INSERT INTO company(description, industry, name, size, email, website, origin, cities) VALUES ('Some description', 'IT', 'Synechron', 10000, 'synDragan@synechron.com', 'syn.dragan.com', 'USA', 'Beograd, Novi Sad');
+INSERT INTO company(description, industry, name, size, email, website, origin, cities) VALUES ('Some other description', 'IT', 'Levi9', 1000, 'leviNiner@levi9.com', 'levi.nine.com', 'USA', 'Beograd, Novi Sad');
+INSERT INTO company(description, industry, name, size, email, website, origin, cities) VALUES ('Google description', 'IT', 'Google', 100000, 'goooogle@google.com', 'google.com', 'USA', 'Beograd, Novi Sad');
 
 -- Synechron comments
 INSERT INTO comment(creation_date, text, company_id, user_id, mark, caption, is_currently_working) VALUES (current_timestamp, 'Regular raises, juniors can also expect a raise if the team spirit is okay, although this may depend on the team, I''m not sure. Technologies are diverse, and the possibility of switching to another technology is also possible.', 1, 2, 5.0, 'Awesome!', true);

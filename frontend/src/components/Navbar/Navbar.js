@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import classes from "./Navbar.module.css";
+import { CheckUserPermission } from '../../components/Permissions/CheckUserPermission.js';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
-import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -45,9 +46,16 @@ function Navbar() {
                     <Link to="/salaries" className={classes.link}>
                         Salaries
                     </Link>
-                    <Link to="/employers" className={classes.link}>
-                        Registration requests
-                    </Link>
+                    <CheckUserPermission role="['ROLE_ADMIN']">
+                        <Link to="/requests" className={classes.link}>
+                            Registration requests
+                        </Link>
+                    </CheckUserPermission>
+                    <CheckUserPermission role="['ROLE_COMPANY_OWNER']">
+                        <Link to="/my-company" className={classes.link}>
+                            My Company
+                        </Link>
+                    </CheckUserPermission>
                     <Link to="/" className={classes.link}>
                         <FontAwesomeIcon icon={faRightFromBracket} onClick={handleLogOut} />
                     </Link>
@@ -70,9 +78,16 @@ function Navbar() {
                         <Link to="/salaries" className={classes.mobileLink} onClick={() => setMobileNavClicked(false)}  >
                             Salaries
                         </Link>
-                        <Link to="/employers" className={classes.mobileLink} onClick={() => setMobileNavClicked(false)}  >
-                            Registration requests
-                        </Link>
+                        <CheckUserPermission role="['ROLE_ADMIN']">
+                            <Link to="/requests" className={classes.mobileLink} onClick={() => setMobileNavClicked(false)}  >
+                                Registration requests
+                            </Link>
+                        </CheckUserPermission>
+                        <CheckUserPermission role="['ROLE_COMPANY_OWNER']">
+                            <Link to="/my-company" className={classes.mobileLink} onClick={() => setMobileNavClicked(false)}  >
+                                My Company
+                            </Link>
+                        </CheckUserPermission>
                         <Link to="/" className={classes.mobileLink}>
                             LogOut <FontAwesomeIcon icon={faRightFromBracket} />
                         </Link>

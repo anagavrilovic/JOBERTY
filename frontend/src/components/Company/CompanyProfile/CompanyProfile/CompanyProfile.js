@@ -14,6 +14,7 @@ import AddComment from '../CompanyProfileComments/AddComment/AddComment';
 import { getCommentsByCompany, getInterviewsByCompany, getSalariesByCompany } from '../../../../api/CompanyApi';
 import AddSalary from '../CompanyProfileSalary/AddSalary/AddSalary';
 import AddInterview from '../CompanyProfileInterview/AddInterview/AddInterview';
+import { CheckUserPermission } from '../../../Permissions/CheckUserPermission.js';
 
 
 function CompanyProfile() {
@@ -94,9 +95,9 @@ function CompanyProfile() {
                         </div>
                     </div>
 
-                    {activeTab === 'comments' ? <button className={classes.button} onClick={toggleAddCommentModal}>Leave a comment</button> : null}
-                    {activeTab === 'salary' ? <button className={classes.button} onClick={toggleAddSalaryModal}>Leave a salary information</button> : null}
-                    {activeTab === 'interview' ? <button className={classes.button} onClick={toggleAddInterviewModal}>Leave an interview impression</button> : null}
+                    {activeTab === 'comments' ? <CheckUserPermission role="['ROLE_USER']"><button className={classes.button} onClick={toggleAddCommentModal}>Leave a comment</button></CheckUserPermission> : null}
+                    {activeTab === 'salary' ? <CheckUserPermission role="['ROLE_USER']"><button className={classes.button} onClick={toggleAddSalaryModal}>Leave a salary information</button></CheckUserPermission> : null}
+                    {activeTab === 'interview' ? <CheckUserPermission role="['ROLE_USER']"><button className={classes.button} onClick={toggleAddInterviewModal}>Leave an interview impression</button></CheckUserPermission> : null}
                 </div>
 
                 <CompanyProfileNavigation activeTab={activeTab} setactiveTab={(tab) => setactiveTab(tab)} />
