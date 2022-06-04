@@ -8,15 +8,16 @@ import com.joberty.backend.repository.RegisteredUserRepository;
 import com.joberty.backend.service.interfaces.JmsConsumerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.activemq.command.ActiveMQBytesMessage;
 import org.springframework.jms.annotation.JmsListener;
+import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import javax.jms.Message;
-import javax.jms.ObjectMessage;
-import javax.jms.TextMessage;
+import javax.jms.Session;
 import java.time.LocalDateTime;
 import java.util.Base64;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -25,34 +26,55 @@ public class JmsConsumerServiceImpl implements JmsConsumerService {
 
     private final ApiTokenRepository tokenRepository;
     private final RegisteredUserRepository userRepository;
-    @Override
-    @JmsListener(destination = "${active-mq.topic}")
-    public void onMessage(Message messageReceived) {
+
+    @JmsListener(destination = "${active-mq.queue}")
+    public void receiveMessage(@Headers MessageHeaders headers, Message messageReceived, Session session) {
+        System.out.println("received queue");
         try{
-            if (messageReceived instanceof TextMessage) {
-                TextMessage objectMessage = (TextMessage) messageReceived;
-                System.out.println("Message received " + objectMessage.getText());
-                String token = objectMessage.getText();
-                RegisteredUser user =getUserByToken(token);
-                if (user != null) {
-                    ApiToken apiToken = new ApiToken(token, LocalDateTime.now().plusHours(1),user.getEmail());
-                    tokenRepository.save(apiToken);
-               }
+            System.out.println(messageReceived);
+            ActiveMQBytesMessage messageInBytes = (ActiveMQBytesMessage) messageReceived;
+            byte[] byteArr = new byte[(int)messageInBytes.getBodyLength()];
+            messageInBytes.readBytes(byteArr);
+            String token = new String(byteArr, "UTF-8");
+            System.out.println(token);
+            if (tokenIsValid(token)) {
+                ApiToken apiToken = new ApiToken(token, LocalDateTime.now().plusHours(1));
+                tokenRepository.save(apiToken);
             }
         } catch(Exception e) {
             log.error("Received Exception while processing message: "+ e);
         }
     }
 
-    private RegisteredUser getUserByToken(String token) {
+    @Override
+    @JmsListener(destination = "${active-mq.queue}")
+    public void onMessage(Message messageReceived) {
+        System.out.println("received topic");
+        try{
+            System.out.println(messageReceived);
+            ActiveMQBytesMessage messageInBytes = (ActiveMQBytesMessage) messageReceived;
+            byte[] byteArr = new byte[(int)messageInBytes.getBodyLength()];
+            messageInBytes.readBytes(byteArr);
+            String token = new String(byteArr, "UTF-8");
+            System.out.println(token);
+            if (tokenIsValid(token)) {
+                ApiToken apiToken = new ApiToken(token, LocalDateTime.now().plusHours(1));
+                tokenRepository.save(apiToken);
+            }
+        } catch(Exception e) {
+            log.error("Received Exception while processing message: "+ e);
+        }
+    }
+
+    private boolean tokenIsValid(String token) {
         String[] chunks = token.split("\\.");
         Base64.Decoder decoder = Base64.getUrlDecoder();
 //      String header = new String(decoder.decode(chunks[0]));
         String payload = new String(decoder.decode(chunks[1]));
         DecodedToken tokenData=new Gson().fromJson(payload, DecodedToken.class);
-        System.out.println("Email :"+tokenData.getUsername());
-        RegisteredUser user=userRepository.findByEmail(tokenData.getUsername());
-        if(user == null && !user.getRole().getName().equals("ROLE_COMPANY_OWNER")) return null;
-        return user;
+        System.out.println("Email :"+tokenData.getEmail());
+        RegisteredUser user=userRepository.findByEmail(tokenData.getEmail());
+        if(user == null && !user.getRole().getName().equals("ROLE_COMPANY_OWNER")) return false;
+        return true;
     }
 }

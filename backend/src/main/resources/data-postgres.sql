@@ -11,7 +11,6 @@ INSERT INTO role(id, name) VALUES (3, 'ROLE_USER');
 -- Users
 INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('admin@gmail.com', true, 'Elon', 0, 'Musk', '$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW', 1);
 INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('srdjan@gmail.com', true, 'Srdjan', 0, 'Sukovic', '123456', 3);
-INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('srdjan.s@gmail.com', true, 'Serhio', 0, 'Ramos', '123456', 3);
 INSERT INTO registered_user(first_name,last_name,email,password,gender,enabled,role_id) VALUES('Stefan','Ljubovic','stefanljubovic@gmail.com','$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW',0,true,2);
 INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('ana@gmail.com', true, 'Ana', 1, 'Gavrilovic', '123456', 3);
 INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('marija@gmail.com', true, 'Marija', 1, 'Kljestan', '123456', 3);
@@ -83,10 +82,8 @@ INSERT INTO salary_info(amount_in_eur, creation_date, position_id, user_id) VALU
 INSERT INTO salary_info(amount_in_eur, creation_date, position_id, user_id) VALUES (1800.0, current_timestamp, 2, 6);
 
 -- Levi9 salary infos
-<<<<<<< HEAD
 INSERT INTO salary_info(amount_in_eur, creation_date, position_id, user_id) VALUES (1300.0, current_timestamp, 5, 1);
 INSERT INTO salary_info(amount_in_eur, creation_date, position_id, user_id) VALUES (900.0, current_timestamp, 6, 2);
-=======
 INSERT INTO salary_info(amount_in_eur, creation_date, position_id, user_id) VALUES (1500.0, current_timestamp, 5, 6);
 INSERT INTO salary_info(amount_in_eur, creation_date, position_id, user_id) VALUES (1800.0, current_timestamp, 6, 2);
 INSERT INTO salary_info(amount_in_eur, creation_date, position_id, user_id) VALUES (1900.0, current_timestamp, 5, 3);
@@ -99,4 +96,3 @@ INSERT INTO salary_info(amount_in_eur, creation_date, position_id, user_id) VALU
 INSERT INTO salary_info(amount_in_eur, creation_date, position_id, user_id) VALUES (3800.0, current_timestamp, 10, 4);
 INSERT INTO salary_info(amount_in_eur, creation_date, position_id, user_id) VALUES (2700.0, current_timestamp, 11, 5);
 INSERT INTO salary_info(amount_in_eur, creation_date, position_id, user_id) VALUES (2800.0, current_timestamp, 11, 6);
->>>>>>> fba0013a8a6ddaa7015e8fb5a654fa15cbb6d523
