@@ -20,7 +20,7 @@
 }
 
 .input, .textarea {
-    background-color: #f8f8f8;
+    background-color: white;
     border: none;
     border: 1px solid rgb(163, 163, 163);
     height: 2rem;
@@ -33,6 +33,10 @@
 
 .input:focus, .textarea:focus {
     outline: none;
+}
+
+.input:disabled, .textarea:disabled {
+    background-color: #efefef;
 }
 
 .textarea {
