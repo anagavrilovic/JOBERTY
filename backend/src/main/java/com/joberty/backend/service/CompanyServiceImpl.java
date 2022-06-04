@@ -46,4 +46,9 @@ public class CompanyServiceImpl implements CompanyService {
         this.userService.registerCompany(companyRequest);
         return this.companyRepository.save(newCompany);
     }
+
+    @Override
+    public Company getByEmail(String email) {
+        return companyRepository.findByEmail(email);
+    }
 }

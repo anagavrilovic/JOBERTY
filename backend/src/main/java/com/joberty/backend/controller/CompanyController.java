@@ -27,4 +27,10 @@ public class CompanyController {
         Collection<CompanyDto> companies = companyService.findAll();
         return new ResponseEntity<>(companies, HttpStatus.OK);
     }
+
+    @GetMapping("/{email}")
+    public ResponseEntity<Company> getByEmail(@PathVariable String email){
+        Company company = companyService.getByEmail(email);
+        return new ResponseEntity<>(company, HttpStatus.OK);
+    }
 }

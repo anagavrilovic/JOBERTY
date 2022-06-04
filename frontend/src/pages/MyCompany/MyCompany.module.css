@@ -1,0 +1,107 @@
+.page {
+    padding: 1rem 7%;
+    padding-top: 3.5rem;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2rem;
+}
+
+.inputForm {
+    text-align: left;
+}
+
+.inputLabel {
+    margin-top: 0;
+    margin-bottom: 0.2rem
+}
+
+.input, .textarea {
+    background-color: #f8f8f8;
+    border: none;
+    border: 1px solid rgb(163, 163, 163);
+    height: 2rem;
+    width: calc(100% - 1rem);
+    font-size: 1rem;
+    font-family: inherit;
+    padding: 0 0.5rem;
+    color: var(--main-text);
+}
+
+.input:focus, .textarea:focus {
+    outline: none;
+}
+
+.textarea {
+    height: 7rem;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button {
+    width: 30%;
+    align-self: center;
+    margin-top: 0.6rem;
+    margin-bottom: 1rem;
+    height: 3rem;
+    font-size: 1rem;
+    background-color: var(--dark-yellow);
+    color: white;
+    border: none;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.button:hover,
+.button:active {
+    color: var(--dark-yellow);
+    background-color: #fff4df;
+    border: 1px solid var(--dark-yellow);
+}
+
+.buttonPassword {
+    width: 30%;
+    align-self: center;
+    margin-top: 0.6rem;
+    margin-bottom: 1rem;
+    height: 3rem;
+    font-size: 1rem;
+    color: var(--dark-yellow);
+    background-color: #fff4df;
+    border: 1px solid var(--dark-yellow);
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.buttonPassword:hover, 
+.buttonPassword:active {
+    background-color: var(--dark-yellow);
+    color: white;
+    border: none;
+}
+
+.errorMessage {
+    height: 1.3rem;
+    color: rgba(180, 0, 0, 0.9);
+    font-size: 0.75rem;
+    text-align: left;
+    font-weight: bold;
+    width: 100%;
+    margin-left: 0.5rem;
+}
+
+.errorInput, .errorTextarea {
+    border: 1px solid rgba(180, 0, 0, 0.9);
+}
+
+@media(max-width: 50rem) {
+    .content {
+        grid-template-columns: 1fr;
+        grid-gap: 0;
+    }
+}

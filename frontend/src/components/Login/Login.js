@@ -36,10 +36,10 @@ function Login(props) {
         <div className={classes.login}>
             <h1 className={classes.caption}>Log in</h1>
             <form onSubmit={submitHandler} className={classes.form}>
-                <div className={classes.errorMessage}> {error ? "Wrong username or password! Try again." : ""}</div>
+                <div className={classes.errorMessage}> {error ? "Wrong email or password! Try again." : ""}</div>
 
                 <div className={classes.formItem}>
-                    <input type="text" required placeholder="Username" onChange={() => setError(false)} />
+                    <input type="text" required placeholder="Email" onChange={() => setError(false)} />
                 </div>
                 <div className={classes.formItem}>
                     <input type="password" required placeholder="Password" onChange={() => setError(false)} />

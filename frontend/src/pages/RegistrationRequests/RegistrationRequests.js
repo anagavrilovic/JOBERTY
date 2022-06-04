@@ -1,10 +1,10 @@
-import classes from "./Employers.module.css";
+import classes from "./RegistrationRequests.module.css";
 import Caption from "../../components/Caption/Caption";
 import CompanySearch from "../../components/Company/CompanySearch/CompanySearch";
 import CompanyFilter from "../../components/Company/CompanyFilter/CompanyFilter";
 import AllRegistrationRequests from "../../components/Company/AllRegistrationRequests/AllRegistrationRequests";
 
-function Employers() {
+function RegistrationRequests() {
     return (
         <div className={classes.page}>
             <Caption caption="Company registration requests"/>
@@ -18,4 +18,4 @@ function Employers() {
     );
 }
 
-export default Employers;
+export default RegistrationRequests;

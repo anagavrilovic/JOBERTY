@@ -1,13 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import classes from "./SalariesFilter.module.css";
 
 function SalariesFilter() {
     const [canSearch, setCanSearch] = useState([false, false, false]);
-
-    useEffect(() => {
-        console.log(canSearch)
-    }, [canSearch])
-    
 
     return (
         <div className={classes.component}>

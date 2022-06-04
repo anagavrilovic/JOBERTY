@@ -32,4 +32,10 @@ public class Company extends BaseEntity{
 
     @Column
     private String industry;
+
+    @Column
+    private String origin;
+
+    @Column
+    private String cities;
 }
