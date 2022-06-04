@@ -8,7 +8,6 @@
     padding: 2rem 1rem;
     box-shadow: 2px 2px 15px #cfcfcf;
     text-align: left;
-    cursor: pointer;
 }
 
 .component:hover {
@@ -67,10 +66,29 @@
     font-size: 0.9rem;
 }
 
+.button {
+    width: 10%;
+    height: 2rem;
+    font-size: 0.8rem;
+    background-color: var(--dark-yellow);
+    color: white;
+    border: none;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.button:hover,
+.button:active {
+    color: var(--dark-yellow);
+    background-color: #fff4df;
+    border: 1px solid var(--dark-yellow);
+}
+
 @media(max-width: 40rem) {
     .component {
         align-items: center;
         text-align: center;
+        flex-direction: column;
     }
 
     .image {
@@ -97,5 +115,10 @@
 
     .technology {
         margin: 0.5rem;
+    }
+
+    .button {
+        width: 30%;
+        margin: 1rem 0;
     }
 }
