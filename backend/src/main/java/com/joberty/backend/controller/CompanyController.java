@@ -1,17 +1,17 @@
 package com.joberty.backend.controller;
 
 import com.joberty.backend.dto.CompanyDto;
+import com.joberty.backend.dto.SalaryInfoDto;
 import com.joberty.backend.model.Comment;
 import com.joberty.backend.model.Company;
+import com.joberty.backend.model.SalaryInfo;
 import com.joberty.backend.service.interfaces.CompanyService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collection;
 
@@ -32,5 +32,15 @@ public class CompanyController {
     public ResponseEntity<Company> getByEmail(@PathVariable String email){
         Company company = companyService.getByEmail(email);
         return new ResponseEntity<>(company, HttpStatus.OK);
+    }
+
+    @PutMapping
+    public ResponseEntity<String> update(@RequestBody Company company){
+        try {
+            companyService.update(company);
+            return new ResponseEntity<>("Successfully updated. ", HttpStatus.OK);
+        } catch (UnsupportedOperationException e) {
+            return new ResponseEntity<>("Company does not exist. ", HttpStatus.BAD_REQUEST);
+        }
     }
 }

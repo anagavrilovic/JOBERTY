@@ -13,4 +13,6 @@ public interface CompanyService {
     Company save(CompanyRegistrationRequest companyRequest);
 
     Company getByEmail(String email);
+
+    Company update(Company company);
 }

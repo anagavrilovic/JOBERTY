@@ -51,4 +51,17 @@ public class CompanyServiceImpl implements CompanyService {
     public Company getByEmail(String email) {
         return companyRepository.findByEmail(email);
     }
+
+    @Override
+    public Company update(Company company) throws UnsupportedOperationException{
+        Company dbCompany = companyRepository.findByEmail(company.getEmail());
+
+        if(dbCompany == null){
+            throw new UnsupportedOperationException("Company does not exist.");
+        }
+
+        company.setId(dbCompany.getId());
+
+        return companyRepository.save(company);
+    }
 }

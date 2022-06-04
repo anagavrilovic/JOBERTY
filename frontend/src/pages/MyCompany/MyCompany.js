@@ -48,6 +48,11 @@ function MyCompany() {
 
         console.log(company);
 
+        axiosInstance.put(`/company`, company)
+            .then((res) => {
+                console.log(res.data);
+            });
+
         setEditMode(false);
     }
 
@@ -61,30 +66,30 @@ function MyCompany() {
                     <div className={classes.contentRow}>
                         <div className={classes.inputForm}>
                             <p className={classes.inputLabel}>Company Name</p>
-                            <input type="text" placeholder='Company Name' disabled={!editMode} 
+                            <input type="text" placeholder='Company Name' disabled={!editMode}
                                 className={classes.input} required
-                                name="name" value={company ? company.name : ''} onChange={handleChange}/>
+                                name="name" value={company ? company.name : ''} onChange={handleChange} />
                         </div>
 
                         <div className={classes.inputForm}>
                             <p className={classes.inputLabel}>Email</p>
                             <input type="text" placeholder='Email' disabled={true}
                                 className={classes.input} required
-                                name="email" value={company ? company.email : ''}/>
+                                name="email" value={company ? company.email : ''} />
                         </div>
 
                         <div className={classes.inputForm}>
                             <p className={classes.inputLabel}>Website</p>
                             <input type="text" placeholder='Website' disabled={!editMode}
-                                className={classes.input} required 
-                                name="website" value={company ? company.website : ''} onChange={handleChange}/>
+                                className={classes.input} required
+                                name="website" value={company ? company.website : ''} onChange={handleChange} />
                         </div>
 
                         <div className={classes.inputForm}>
                             <p className={classes.inputLabel}>Description</p>
                             <textarea type="text" placeholder='Description' disabled={!editMode}
                                 className={classes.textarea} required
-                                name="description" value={company ? company.description : ''} onChange={handleChange}/>
+                                name="description" value={company ? company.description : ''} onChange={handleChange} />
                         </div>
                     </div>
                     <div className={classes.contentRow}>
@@ -92,28 +97,28 @@ function MyCompany() {
                             <p className={classes.inputLabel}>Industry</p>
                             <input type="text" placeholder='Industry' disabled={!editMode}
                                 className={classes.input} required
-                                name="industry" value={company ? company.industry : ''} onChange={handleChange}/>
+                                name="industry" value={company ? company.industry : ''} onChange={handleChange} />
                         </div>
 
                         <div className={classes.inputForm}>
                             <p className={classes.inputLabel}>Origin</p>
                             <input type="text" placeholder='Origin' disabled={!editMode}
-                                className={classes.input} required 
-                                name="origin" value={company ? company.origin : ''} onChange={handleChange}/>
+                                className={classes.input} required
+                                name="origin" value={company ? company.origin : ''} onChange={handleChange} />
                         </div>
 
                         <div className={classes.inputForm}>
                             <p className={classes.inputLabel}>Offices in</p>
                             <input type="text" placeholder='Offices in' disabled={!editMode}
-                                className={classes.input} required 
-                                name="cities" value={company ? company.cities : ''} onChange={handleChange}/>
+                                className={classes.input} required
+                                name="cities" value={company ? company.cities : ''} onChange={handleChange} />
                         </div>
 
                         <div className={classes.inputForm}>
                             <p className={classes.inputLabel}>Number of Employees</p>
                             <input type="text" placeholder='Number of Employees' disabled={!editMode}
-                                className={classes.input} required 
-                                name="size" value={company ? company.size : ''} onChange={handleChange}/>
+                                className={classes.input} required
+                                name="size" value={company ? company.size : ''} onChange={handleChange} />
                         </div>
 
                         <div className={classes.buttons}>
