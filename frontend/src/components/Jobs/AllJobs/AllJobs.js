@@ -7,7 +7,7 @@ function AllJobs(props) {
     return (
         <div className={classes.component}>
             {props.jobs.map((job) => {
-                return <Job key={job}/>
+                return <Job key={job} publishToDislinkt={props.publishToDislinkt ? props.publishToDislinkt : null}/>
             })}
         </div>
     )

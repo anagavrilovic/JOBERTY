@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import classes from './MyCompany.module.css';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import Caption from "../../components/Caption/Caption";
+import AllJobs from '../../components/Jobs/AllJobs/AllJobs';
 
 import { axiosInstance } from "../../api/AxiosInstance"
 
 function MyCompany() {
 
     const [company, setCompany] = useState();
+    const [jobs, setJobs] = useState();
     const [editMode, setEditMode] = useState(false);
 
     const user = useSelector((state) => state.user.value);
@@ -27,7 +30,6 @@ function MyCompany() {
                 axiosInstance.get(`/company/${response.data.email}`)
                     .then((response1) => {
                         setCompany(response1.data);
-                        console.log(company);
                     })
             })
     }, []);
@@ -56,12 +58,34 @@ function MyCompany() {
         setEditMode(false);
     }
 
+    const navigate = useNavigate();
+
+    function newJobOffer(){
+        navigate(`/job-offer`)
+    }
+
+    function handlePublishToDislinkt() {
+        console.log("ZEZ");
+    }
+
     return (
         <div className={classes.page}>
             <div className={classes.header}>
                 <Caption caption="My Company" />
             </div>
             <div>
+                <div className={classes.descriptionWrapper}>
+                    <div>
+                        <div className={classes.descriptionQuestion}>Main information</div>
+                        <div className={classes.descriptionUnderline}></div>
+                    </div>
+                    <div className={classes.buttons}>
+                        <button className={classes.button}>Change password</button>
+                        <button className={classes.button} onClick={handleEditProfile}>
+                            {editMode ? "Save changes" : "Edit profile"}
+                        </button>
+                    </div>
+                </div>
                 <form className={classes.content}>
                     <div className={classes.contentRow}>
                         <div className={classes.inputForm}>
@@ -79,21 +103,6 @@ function MyCompany() {
                         </div>
 
                         <div className={classes.inputForm}>
-                            <p className={classes.inputLabel}>Website</p>
-                            <input type="text" placeholder='Website' disabled={!editMode}
-                                className={classes.input} required
-                                name="website" value={company ? company.website : ''} onChange={handleChange} />
-                        </div>
-
-                        <div className={classes.inputForm}>
-                            <p className={classes.inputLabel}>Description</p>
-                            <textarea type="text" placeholder='Description' disabled={!editMode}
-                                className={classes.textarea} required
-                                name="description" value={company ? company.description : ''} onChange={handleChange} />
-                        </div>
-                    </div>
-                    <div className={classes.contentRow}>
-                        <div className={classes.inputForm}>
                             <p className={classes.inputLabel}>Industry</p>
                             <input type="text" placeholder='Industry' disabled={!editMode}
                                 className={classes.input} required
@@ -106,6 +115,16 @@ function MyCompany() {
                                 className={classes.input} required
                                 name="origin" value={company ? company.origin : ''} onChange={handleChange} />
                         </div>
+
+                        <div className={classes.inputForm}>
+                            <p className={classes.inputLabel}>Website</p>
+                            <input type="text" placeholder='Website' disabled={!editMode}
+                                className={classes.input} required
+                                name="website" value={company ? company.website : ''} onChange={handleChange} />
+                        </div>
+
+                    </div>
+                    <div className={classes.contentRow}>
 
                         <div className={classes.inputForm}>
                             <p className={classes.inputLabel}>Offices in</p>
@@ -121,15 +140,25 @@ function MyCompany() {
                                 name="size" value={company ? company.size : ''} onChange={handleChange} />
                         </div>
 
-                        <div className={classes.buttons}>
-                            <button className={classes.buttonPassword}>Change password</button>
-                            <button className={classes.button} onClick={handleEditProfile}>
-                                {editMode ? "Save changes" : "Edit profile"}
-                            </button>
-                        </div>
 
+                        <div className={classes.inputForm}>
+                            <p className={classes.inputLabel}>Description</p>
+                            <textarea type="text" placeholder='Description' disabled={!editMode}
+                                className={classes.textarea} required
+                                name="description" value={company ? company.description : ''} onChange={handleChange} />
+                        </div>
                     </div>
                 </form>
+
+                <div className={classes.descriptionWrapper}>
+                    <div>
+                        <div className={classes.descriptionQuestion}>Job Offers</div>
+                        <div className={classes.descriptionUnderline}></div>
+                    </div>
+                    <button className={classes.button} onClick={newJobOffer}>Create job offer</button>
+                </div>
+
+                <AllJobs jobs={[1, 2, 3]} publishToDislinkt={handlePublishToDislinkt}/>
             </div>
         </div>
     )

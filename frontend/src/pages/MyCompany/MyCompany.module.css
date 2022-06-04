@@ -3,6 +3,28 @@
     padding-top: 3.5rem;
 }
 
+.descriptionWrapper {
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.descriptionQuestion {
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 100%;
+    text-align: left;
+}
+
+.descriptionUnderline {
+    height: 0.4rem;
+    width: 5rem;
+    background-color: var(--yellow);
+    margin-top: 1rem;
+}
+
 .content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -40,26 +62,26 @@
 }
 
 .textarea {
-    height: 7rem;
+    height: 11rem;
 }
 
 .buttons {
+    flex: 1;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 
 .button {
-    width: 30%;
+    width: 15%;
     align-self: center;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    height: 3rem;
-    font-size: 1rem;
+    height: 2.5rem;
+    font-size: 0.9rem;
     background-color: var(--dark-yellow);
     color: white;
     border: none;
     font-family: inherit;
     cursor: pointer;
+    margin-left: 1rem;
 }
 
 .button:hover,
@@ -67,27 +89,6 @@
     color: var(--dark-yellow);
     background-color: #fff4df;
     border: 1px solid var(--dark-yellow);
-}
-
-.buttonPassword {
-    width: 30%;
-    align-self: center;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    height: 3rem;
-    font-size: 1rem;
-    color: var(--dark-yellow);
-    background-color: #fff4df;
-    border: 1px solid var(--dark-yellow);
-    font-family: inherit;
-    cursor: pointer;
-}
-
-.buttonPassword:hover, 
-.buttonPassword:active {
-    background-color: var(--dark-yellow);
-    color: white;
-    border: none;
 }
 
 .errorMessage {
@@ -105,6 +106,21 @@
 }
 
 @media(max-width: 50rem) {
+    .descriptionWrapper {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .buttons {
+        margin-top: 1rem;
+        align-self: flex-end;
+        width: 100%;
+    }
+
+    .button, .buttonPassword {
+        width: 25%;
+    }
+
     .content {
         grid-template-columns: 1fr;
         grid-gap: 0;
