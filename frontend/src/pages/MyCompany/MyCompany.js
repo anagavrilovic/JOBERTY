@@ -31,8 +31,13 @@ function MyCompany() {
                     .then((response1) => {
                         setCompany(response1.data);
                     })
+
+                axiosInstance.get(`/job-offer/all/${response.data.email}`)
+                    .then((response1) => {
+                        setJobs(response1.data);
+                    })
             })
-    }, []);
+    });
 
 
     function handleChange(e) {
@@ -158,7 +163,7 @@ function MyCompany() {
                     <button className={classes.button} onClick={newJobOffer}>Create job offer</button>
                 </div>
 
-                <AllJobs jobs={[1, 2, 3]} publishToDislinkt={handlePublishToDislinkt}/>
+                <AllJobs jobs={jobs ? jobs : []} publishToDislinkt={handlePublishToDislinkt}/>
             </div>
         </div>
     )

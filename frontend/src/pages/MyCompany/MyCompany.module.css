@@ -119,6 +119,7 @@
 
     .button, .buttonPassword {
         width: 25%;
+        align-self: flex-end;
     }
 
     .content {

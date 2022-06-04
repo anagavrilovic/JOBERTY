@@ -106,7 +106,7 @@ function CompanyProfile() {
                 {activeTab === 'comments' ? <CompanyProfileComments comments={comments} /> : null}
                 {activeTab === 'salary' ? <CompanyProfileSalary companyId={company.id} salaries={salaries} /> : null}
                 {activeTab === 'interview' ? <CompanyProfileInterview comments={interviews} /> : null}
-                {activeTab === 'jobs' ? <CompanyProfileJobs companyId={company.id} /> : null}
+                {activeTab === 'jobs' ? <CompanyProfileJobs companyEmail={company.email} /> : null}
             </div>
 
             {addCommentVisible && <AddComment toggleAddComment={toggleAddCommentModal} company={company} reload={reloadComments}/>}
