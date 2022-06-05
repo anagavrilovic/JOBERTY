@@ -38,6 +38,8 @@ public class JmsConsumerServiceImpl implements JmsConsumerService {
             String token = new String(byteArr, "UTF-8");
             System.out.println(token);
             RegisteredUser user =getUserFromToken(token);
+            ApiToken deleted= tokenRepository.findByEmail(user.getEmail());
+            if(deleted != null) tokenRepository.delete(deleted);
             if (user != null) {
                 ApiToken apiToken = new ApiToken(token, LocalDateTime.now().plusHours(1),user.getEmail());
                 tokenRepository.save(apiToken);
@@ -52,7 +54,6 @@ public class JmsConsumerServiceImpl implements JmsConsumerService {
     public void onMessage(Message messageReceived) {
         System.out.println("received topic");
         try{
-            System.out.println(messageReceived);
             ActiveMQBytesMessage messageInBytes = (ActiveMQBytesMessage) messageReceived;
             byte[] byteArr = new byte[(int)messageInBytes.getBodyLength()];
             messageInBytes.readBytes(byteArr);
@@ -73,7 +74,6 @@ public class JmsConsumerServiceImpl implements JmsConsumerService {
     private RegisteredUser getUserFromToken(String token) {
         String[] chunks = token.split("\\.");
         Base64.Decoder decoder = Base64.getUrlDecoder();
-//      String header = new String(decoder.decode(chunks[0]));
         String payload = new String(decoder.decode(chunks[1]));
         DecodedToken tokenData=new Gson().fromJson(payload, DecodedToken.class);
         System.out.println("Email :"+tokenData.getEmail());
