@@ -26,9 +26,9 @@ public class JobOfferController {
     private final JobOfferService jobOfferService;
     private final JmsProducerService jmsProducerService;
 
-    @PostMapping("{jobOfferId}/send-token")
-    public ResponseEntity<Integer> sendJobOffer(@PathVariable Integer jobOfferId, Principal principal){
-            boolean sent= jmsProducerService.sendJobOffer(jobOfferId,principal.getName());
+    @PostMapping("{jobOfferId}/send-token/{email}")
+    public ResponseEntity<Integer> sendJobOffer(@PathVariable("jobOfferId") Integer jobOfferId,@PathVariable("email") String email){
+            boolean sent= jmsProducerService.sendJobOffer(jobOfferId,email);
             if(!sent)  throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error while sending job offer.");
             return new ResponseEntity<>(jobOfferId, HttpStatus.CREATED);
     }
@@ -43,15 +43,15 @@ public class JobOfferController {
         }
     }
 
-    @GetMapping("all/{email}")
-    public ResponseEntity<Collection<JobOffer>> getByCompany(@PathVariable String email){
-        Collection<JobOffer> jobOffers = jobOfferService.findByCompany(email);
-        return new ResponseEntity<>(jobOffers, HttpStatus.OK);
-    }
-
     @GetMapping("all")
     public ResponseEntity<Collection<JobOffer>> getAll(){
         Collection<JobOffer> jobOffers = jobOfferService.findAll();
+        return new ResponseEntity<>(jobOffers, HttpStatus.OK);
+    }
+
+    @GetMapping("all/{email}")
+    public ResponseEntity<Collection<JobOffer>> getByCompany(@PathVariable String email){
+        Collection<JobOffer> jobOffers = jobOfferService.findByCompany(email);
         return new ResponseEntity<>(jobOffers, HttpStatus.OK);
     }
 }

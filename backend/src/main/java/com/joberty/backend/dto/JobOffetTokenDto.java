@@ -7,6 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class JobOffetTokenDto {
-    private JobOffer jobOffer;
+    private DislinktJobOfferDto jobOffer;
     private String token;
 }

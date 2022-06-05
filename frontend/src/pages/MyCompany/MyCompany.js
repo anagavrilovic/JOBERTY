@@ -37,7 +37,7 @@ function MyCompany() {
                         setJobs(response1.data);
                     })
             })
-    });
+    },[]);
 
 
     function handleChange(e) {

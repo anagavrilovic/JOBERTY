@@ -13,8 +13,9 @@ const JobOfferService = {
 
     },
 
-    sendOffer: function(id) {
-        return axios.post(`http://localhost:8088/job-offer/`+id+"/send-token", {
+    sendOffer: function(id,email) {
+        console.log(localStorage.getItem('token'))
+        return axios.post(`http://localhost:8088/job-offer/`+id+"/send-token/"+email, {
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',

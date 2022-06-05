@@ -20,7 +20,7 @@ INSERT INTO registered_user(email, enabled, first_name, gender, last_name, passw
 INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('goooogle@google.com', true, 'Google', 0, '', '$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW', 2);
 
 -- Companies
-INSERT INTO company(description, industry, name, size, email, website, origin, cities) VALUES ('Some description', 'IT', 'Synechron', 10000, 'synDragan@synechron.com', 'syn.dragan.com', 'USA', 'Beograd, Novi Sad');
+INSERT INTO company(description, industry, name, size, email, website, origin, cities) VALUES ('Some description', 'IT', 'Synechron', 10000, 'stefanljubovic@gmail.com', 'syn.dragan.com', 'USA', 'Beograd, Novi Sad');
 INSERT INTO company(description, industry, name, size, email, website, origin, cities) VALUES ('Some other description', 'IT', 'Levi9', 1000, 'leviNiner@levi9.com', 'levi.nine.com', 'USA', 'Beograd, Novi Sad');
 INSERT INTO company(description, industry, name, size, email, website, origin, cities) VALUES ('Google description', 'IT', 'Google', 100000, 'goooogle@google.com', 'google.com', 'USA', 'Beograd, Novi Sad');
 

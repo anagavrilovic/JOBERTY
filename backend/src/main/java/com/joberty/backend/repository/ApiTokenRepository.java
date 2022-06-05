@@ -10,4 +10,6 @@ public interface ApiTokenRepository extends JpaRepository<ApiToken, Integer> {
 
     @Query("select token from ApiToken token where token.email = ?1 and token.expiringDate <= ?2")
     ApiToken findByEmailAndExpiringDate(String email, LocalDateTime dateTime);
+
+    ApiToken findByEmail(String email);
 }

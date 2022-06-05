@@ -5,23 +5,25 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { useNavigate } from 'react-router';
 import CompanyService from '../../../services/CompanyService';
 import JobOfferService from '../../../services/JobOfferService';
+import { useSelector } from 'react-redux';
+import { axiosInstance } from "../../../api/AxiosInstance"
 
 const CreateJobOffer = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm({})
-    const [companies, setCompanies] = useState([])
     const navigate = useNavigate()
+    const [company, setCompany] = useState([])
+    const user = useSelector((state) => state.user.value);
 
     const onSubmit = handleSubmit((data) => {
-        console.log(companies)
         console.log(data)
-        let company = companies.filter(comp => comp.company.id === data.company)
         const jobOffer = {
             position: data.position,
             jobDescription: data.description,
             prerequisites: data.prerequisites,
-            company: company[0].company,
-            employment_type: parseInt(data.type)
+            company: company,
+            employment_type: parseInt(data.type),
+            seniority: parseInt(data.seniority)
         }
         console.log(jobOffer)
         JobOfferService.save(jobOffer).then(resp => {
@@ -31,10 +33,21 @@ const CreateJobOffer = () => {
     })
 
     useEffect(() => {
-        CompanyService.getAll().then(resp => {
-            console.log(resp.data)
-            setCompanies(resp.data)
-        })
+        const config = {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                Accept: 'application/json',
+                'Authorization': `Bearer ${user.accessToken}`
+            }
+        }
+
+        axiosInstance.get(`/auth/whoami`, config)
+            .then((response) => {
+                axiosInstance.get(`/company/${response.data.email}`)
+                    .then((response1) => {
+                        setCompany(response1.data);
+                    })
+            })
     }, [])
 
     function getBack() {
@@ -104,21 +117,25 @@ const CreateJobOffer = () => {
                     </div>
                     <div className={classes.formItem}>
                         <label htmlFor="func" className={classes.formLabel}>
-                            Company
+                            Seniority
                         </label>
                         <select name="func"
                             className={classes.select}
-                            {...register("company", { required: { value: true, message: 'Company is required' } })}>
+                            {...register("seniority", { required: { value: true, message: 'Feld is required' } })}>
                             <option value=""></option>
-                            {
-                                companies.map((company, i) =>
-                                    <option key={i} value={company.company.id}>{company.company.name}</option>
-                                )
-                            }
+                            <option value="0">Junior</option>
+                            <option value="1">Medior</option>
+                            <option value="2">Senior</option>
                         </select>
                         {
-                            errors.company && <div className={classes.error}><label>{errors.company.message}</label></div>
+                            errors.seniority && <div className={classes.error}><label>{errors.seniority.message}</label></div>
                         }
+                    </div>
+                    <div className={classes.formItem}>
+                        <label htmlFor="func" className={classes.formLabel}>
+                            Company
+                        </label>
+                        <label className={classes.companyLabel}>{company.name}</label>
                     </div>
 
                     <button className={classes.buttonLogIn}>Create job offer</button>

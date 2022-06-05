@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
 import java.util.Collection;
 
 @RestController
@@ -31,6 +32,12 @@ public class CompanyController {
     @GetMapping("/{email}")
     public ResponseEntity<Company> getByEmail(@PathVariable String email){
         Company company = companyService.getByEmail(email);
+        return new ResponseEntity<>(company, HttpStatus.OK);
+    }
+
+    @GetMapping("/owner")
+    public ResponseEntity<Company> getByOwner(Principal principal){
+        Company company = companyService.getByEmail(principal.getName());
         return new ResponseEntity<>(company, HttpStatus.OK);
     }
 

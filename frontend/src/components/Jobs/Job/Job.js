@@ -1,9 +1,30 @@
 import React from 'react';
 import classes from './Job.module.css';
 import Synechron from '../../../images/synechron.png';
-
+import JobOfferService from '../../../services/JobOfferService';
+import { useSelector } from 'react-redux';
+import { axiosInstance } from "../../../api/AxiosInstance"
 
 function Job({ job, publishToDislinkt }) {
+
+    const user = useSelector((state) => state.user.value);
+
+    function publish(){
+        const config = {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                Accept: 'application/json',
+                'Authorization': `Bearer ${user.accessToken}`
+            }
+        }
+        axiosInstance.get(`/auth/whoami`, config)
+            .then((response) => {
+                console.log(response.data.email)
+                JobOfferService.sendOffer(job.id,response.data.email).then(resp=>{
+                    console.log(resp.data)
+                })
+            })
+    }
 
     return (
         <div className={classes.component}>
@@ -29,7 +50,7 @@ function Job({ job, publishToDislinkt }) {
             {
                 publishToDislinkt ?
                     <button className={classes.button}
-                        onClick={publishToDislinkt ? () => publishToDislinkt() : null}>
+                        onClick={publishToDislinkt ? () => publish() : null}>
                         Publish
                     </button>
                     : null
