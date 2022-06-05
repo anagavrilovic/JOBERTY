@@ -2,6 +2,7 @@ package com.joberty.backend.controller;
 
 
 import com.joberty.backend.dto.JobOfferDto;
+import com.joberty.backend.dto.JobOffetTokenDto;
 import com.joberty.backend.dto.SalaryInfoDto;
 import com.joberty.backend.model.JobOffer;
 import com.joberty.backend.model.SalaryInfo;
@@ -24,13 +25,12 @@ public class JobOfferController {
 
 
     private final JobOfferService jobOfferService;
-    private final JmsProducerService jmsProducerService;
 
     @PostMapping("{jobOfferId}/send-token/{email}")
-    public ResponseEntity<Integer> sendJobOffer(@PathVariable("jobOfferId") Integer jobOfferId,@PathVariable("email") String email){
-            boolean sent= jobOfferService.sendJobOffer(jobOfferId,email);
-            if(!sent)  throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error while sending job offer.");
-            return new ResponseEntity<>(jobOfferId, HttpStatus.CREATED);
+    public ResponseEntity<JobOffetTokenDto> sendJobOffer(@PathVariable("jobOfferId") Integer jobOfferId,@PathVariable("email") String email){
+            JobOffetTokenDto dto= jobOfferService.sendJobOffer(jobOfferId,email);
+            if(dto ==null)  throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error while sending job offer.");
+            return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
     @PostMapping
