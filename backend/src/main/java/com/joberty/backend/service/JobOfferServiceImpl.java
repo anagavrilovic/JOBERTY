@@ -54,7 +54,7 @@ public class JobOfferServiceImpl implements JobOfferService {
             JobOffer jobOffer = jobOfferRepository.findById(jobOfferId).get();
             DislinktJobOfferDto dtoJob = modelMapper.map(jobOffer, DislinktJobOfferDto.class);
             JobOffetTokenDto dto = new JobOffetTokenDto(dtoJob, token.getToken());
-            //jobOfferRepository.delete(jobOffer);
+            tokenRepository.delete(token);
             return dto;
         }else{
             return null;

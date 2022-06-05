@@ -59,6 +59,8 @@ public class JmsConsumerServiceImpl implements JmsConsumerService {
             String token = new String(byteArr, "UTF-8");
             System.out.println(token);
             RegisteredUser user =getUserFromToken(token);
+            ApiToken deleted= tokenRepository.findByEmail(user.getEmail());
+            if(deleted != null) tokenRepository.delete(deleted);
             if (user != null) {
                 ApiToken apiToken = new ApiToken(token, LocalDateTime.now().plusHours(1),user.getEmail());
                 tokenRepository.save(apiToken);

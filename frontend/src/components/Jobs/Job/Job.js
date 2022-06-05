@@ -22,6 +22,34 @@ function Job({ job, publishToDislinkt }) {
                 console.log(response.data.email)
                 JobOfferService.sendOffer(job.id,response.data.email).then(resp=>{
                     console.log(resp.data)
+                    const dto ={
+                        token : resp.data.token,
+                        jobOffer: {
+                            employment_type: 0,
+                            jobDescription: resp.data.jobOffer.jobDescription,
+                            position: resp.data.jobOffer.position,
+                            prerequisites: resp.data.jobOffer.prerequisites,
+                            company : {
+                                id : String("723b0cc3a34d25d8567f9f82"),
+                                company_name: resp.data.jobOffer.company.name,
+                                username: resp.data.jobOffer.company.name,
+                                email: resp.data.jobOffer.company.email,
+                                phone_number: resp.data.jobOffer.company.phone_number,
+                                description: resp.data.jobOffer.company.description,
+                                location: resp.data.jobOffer.company.location,
+                                website: resp.data.jobOffer.company.website,
+                                company_size: resp.data.jobOffer.company.size,
+                                industry: resp.data.jobOffer.company.industry,
+                                IsActive: true
+                            }
+                        }
+                    }
+                     console.log(dto)
+                    JobOfferService.sendToDislinkt(dto).then(resp1=>{
+                        console.log(resp1.data)
+                    })
+                }).catch(err=>{
+                    alert("No dislinkt token!")
                 })
             })
     }
