@@ -2,12 +2,15 @@ import React, {useEffect, useState} from 'react'
 import { addInterviewInfo, getPositionsByCompany } from '../../../../../api/CompanyApi';
 import InteractiveStarRate from '../../../../StarRate/InteractiveStarRate/InteractiveStarRate';
 import classes from './AddInterview.module.css'
+import { axiosInstance } from '../../../../../api/AxiosInstance';
+import { useSelector } from 'react-redux';
 
 const AddInterview = ({ company, toggleAddInterview, reload }) => {
 
     const [interview, setInterview] = useState({positionId: 1, userId: 1, offerStatus: 0});
     const [positions, setPositions] = useState([]);
     const [error, setError] = useState('');
+    const user = useSelector((state) => state.user.value);
 
     function ratingChanged(value) {
         setInterview(prev => ({ ...prev, mark: parseFloat(value) }));
@@ -22,6 +25,20 @@ const AddInterview = ({ company, toggleAddInterview, reload }) => {
         getPositions();
 
     }, [company]);
+
+    useEffect(() => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                Accept: 'application/json',
+                'Authorization': `Bearer ${user.accessToken}`
+            }
+        }
+        axiosInstance.get(`/auth/whoami`, config)
+            .then((response) => {
+                setInterview(prev => ({ ...prev, userId: response.data.id }));
+            })
+    }, [user])
 
     function onInterviewChange(e) {
         setError("");

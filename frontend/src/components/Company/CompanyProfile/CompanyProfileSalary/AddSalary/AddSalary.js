@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { addSalaryInfo, getPositionsByCompany } from '../../../../../api/CompanyApi'
 import classes from './AddSalary.module.css'
+import { axiosInstance } from '../../../../../api/AxiosInstance'
+import { useSelector } from 'react-redux'
 
 const AddSalary = ({ toggleAddSalary, company, reload }) => {
     const [salary, setSalary] = useState({positionId: 1, userId: 1});
     const [positions, setPositions] = useState([]);
     const [error, setError] = useState('');
+    const user = useSelector((state) => state.user.value);
 
     useEffect(() => {
         async function getPositions(){
@@ -16,6 +19,20 @@ const AddSalary = ({ toggleAddSalary, company, reload }) => {
         getPositions();
 
     }, [company]);
+
+    useEffect(() => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                Accept: 'application/json',
+                'Authorization': `Bearer ${user.accessToken}`
+            }
+        }
+        axiosInstance.get(`/auth/whoami`, config)
+            .then((response) => {
+                setSalary(prev => ({ ...prev, userId: response.data.id }));
+            })
+    }, [user])
 
 
     function onPositionSelected(e) {
@@ -29,7 +46,7 @@ const AddSalary = ({ toggleAddSalary, company, reload }) => {
 
     function onSaveSalaryInformation(e){
         e.preventDefault();
-        console.log(salary)
+
         if(salary.amountInEur <= 0 || !salary.amountInEur) {
             setError("Must be greater than 0.");
             return;

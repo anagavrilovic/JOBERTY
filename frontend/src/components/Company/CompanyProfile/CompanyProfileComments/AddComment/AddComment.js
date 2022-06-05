@@ -25,9 +25,9 @@ const AddComment = ({ toggleAddComment, company, reload }) => {
         }
         axiosInstance.get(`/auth/whoami`, config)
             .then((response) => {
-                user.id = response.data.id;
+                setComment(prev => ({ ...prev, userId: response.data.id }));
             })
-    }, [])
+    }, [user])
 
     function onCommentChange(e) {
         const element = e.target.id;
@@ -53,8 +53,6 @@ const AddComment = ({ toggleAddComment, company, reload }) => {
 
     function onCommentSave(e){
         e.preventDefault();
-        setComment(prev => ({ ...prev, userId: user.id }));
-
 
         if(!comment.caption || !comment.text || comment.mark === 0.0){
             setError("All fields are required.");
