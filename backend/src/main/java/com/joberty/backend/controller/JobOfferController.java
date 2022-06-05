@@ -28,7 +28,7 @@ public class JobOfferController {
 
     @PostMapping("{jobOfferId}/send-token/{email}")
     public ResponseEntity<Integer> sendJobOffer(@PathVariable("jobOfferId") Integer jobOfferId,@PathVariable("email") String email){
-            boolean sent= jmsProducerService.sendJobOffer(jobOfferId,email);
+            boolean sent= jobOfferService.sendJobOffer(jobOfferId,email);
             if(!sent)  throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error while sending job offer.");
             return new ResponseEntity<>(jobOfferId, HttpStatus.CREATED);
     }

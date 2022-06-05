@@ -13,4 +13,6 @@ public interface JobOfferService {
 
     Collection<JobOffer> findAll();
 
+    boolean sendJobOffer(Integer jobOfferId,String email);
+
 }
