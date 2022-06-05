@@ -39,14 +39,6 @@ const schema = yup.object().shape({
         yup.string()
             .oneOf([yup.ref("password")], "Passwords do not match.")
             .required("Please confirm your password."),
-    origin:
-        yup.string()
-            .max(256, "Maximum number of characters is 256.")
-            .required("Origin is required."),
-    description:
-        yup.string()
-            .max(256, "Maximum number of characters is 256.")
-            .required("Decription is required."),
 });
 
 export default schema;

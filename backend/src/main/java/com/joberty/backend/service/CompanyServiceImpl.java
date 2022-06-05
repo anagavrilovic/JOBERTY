@@ -32,7 +32,10 @@ public class CompanyServiceImpl implements CompanyService {
         Collection<CompanyDto> companyDtos = new ArrayList<>();
         for (Company c : companies) {
             CompanyCommentDto companyComment = commentRepository.findCommentDataOfCompany(c.getId());
-            CompanyDto dto = new CompanyDto(c, companyComment.getCompanyRate(), companyComment.getNumberOfComments());
+
+            CompanyDto dto;
+            if(companyComment != null) dto = new CompanyDto(c, companyComment.getCompanyRate(), companyComment.getNumberOfComments());
+            else dto = new CompanyDto(c, 0, 0l);
             companyDtos.add(dto);
         }
         
