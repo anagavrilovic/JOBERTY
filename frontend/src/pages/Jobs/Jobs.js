@@ -4,8 +4,19 @@ import CompanySearch from "../../components/Company/CompanySearch/CompanySearch"
 import JobFilter from "../../components/Jobs/JobFilter/JobFilter";
 import AllJobs from "../../components/Jobs/AllJobs/AllJobs";
 
+import { useState, useEffect } from 'react';
+import { axiosInstance } from "../../api/AxiosInstance"
+
 function Jobs() {
-    const adNum = 7;
+
+    const [jobs, setJobs] = useState();
+
+    useEffect(() => {
+        axiosInstance.get(`/job-offer/all`)
+            .then((response) => {
+                setJobs(response.data);
+            })
+    }, []);
 
     return (
         <div className={classes.page}>
@@ -17,7 +28,7 @@ function Jobs() {
 
             <div className={classes.content}>
                 <div className={classes.contentHeader}>
-                    <p>{adNum} Ads</p>
+                    <p>{jobs ? jobs.length : ''} Ads</p>
 
                     <div className={classes.sort}>
                         <p>Sort:</p>
@@ -28,7 +39,7 @@ function Jobs() {
                     </div>
                 </div>
 
-                <AllJobs jobs={[1, 2, 3, 4, 5, 6, 7]}/>
+                <AllJobs jobs={jobs ? jobs : []} />
             </div>
         </div>
     );

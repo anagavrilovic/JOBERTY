@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -25,5 +26,15 @@ public class JobOfferServiceImpl implements JobOfferService {
         JobOffer offer=jobOfferRepository.save(newJobOffer);
         if(offer ==null) throw new UnsupportedOperationException();
         return offer.getId();
+    }
+
+    @Override
+    public Collection<JobOffer> findByCompany(String email) {
+        return jobOfferRepository.findByCompany(email);
+    }
+
+    @Override
+    public Collection<JobOffer> findAll() {
+        return jobOfferRepository.findAll();
     }
 }

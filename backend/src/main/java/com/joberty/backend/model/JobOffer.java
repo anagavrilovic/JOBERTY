@@ -33,4 +33,8 @@ public class JobOffer extends BaseEntity{
     private FormOfEmployment employment_type;
 
     private Date published;
+
+    private Date expires;
+
+    private Seniority seniority;
 }

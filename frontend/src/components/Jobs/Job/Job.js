@@ -2,43 +2,38 @@ import React from 'react';
 import classes from './Job.module.css';
 import Synechron from '../../../images/synechron.png';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faCircle } from '@fortawesome/free-solid-svg-icons';
 
-function Job() {
-    const jobAd = {
-        companyName: "Synechron",
-        job: "Software Developer / Back-end",
-        companyRate: 4.1,
-        cities: ['Beograd', 'Novi Sad'],
-        seniority: 'Junior',
-        expiresIn: new Date('06/12/2022'),
-        technologies: ['Java', 'AWS', 'Spring Boot', 'No SQL', 'REST']
-    }
+function Job({ job, publishToDislinkt }) {
 
     return (
         <div className={classes.component}>
             <div className={classes.imageWrapper}>
-                <img src={Synechron} alt={jobAd.companyName} className={classes.image}/>
+                <img src={Synechron} alt={job.company.name} className={classes.image} />
             </div>
             <div className={classes.jobInfo}>
-                <h3 className={classes.jobTitle}>{jobAd.job}</h3>
-                <p className={classes.mainText}>{jobAd.companyName}</p>
+                <h3 className={classes.jobTitle}>{job.position}</h3>
+                <p className={classes.mainText}>{job.company.name}</p>
                 <p className={classes.mainText}>
-                    (<FontAwesomeIcon icon={faStar} className={classes.starIcon}/> {jobAd.companyRate})
-                    <FontAwesomeIcon icon={faCircle} className={classes.dotIcon}/>
-                    {jobAd.cities.map((city) => {return city + ", "})}
+                    {job.company.cities}
                 </p>
-                <p className={classes.mainText}>{jobAd.seniority}</p>
+                <p className={classes.mainText}>{job.seniority.charAt(0).toUpperCase() + job.seniority.slice(1)}</p>
 
                 <div className={classes.technologies}>
-                    {jobAd.technologies.map((technology) => {
+                    {job.prerequisites.split(',').map((technology) => {
                         return <div className={classes.technology} key={technology}>{technology}</div>
                     })}
                 </div>
 
-                <p className={classes.expiresIn}>{Math.ceil((jobAd.expiresIn.getTime() - new Date().getTime())/(1000*3600*24))} days left</p>
+                <p className={classes.expiresIn}>{Math.ceil((job.expires - new Date().getTime()) / (1000 * 3600 * 24))} days left</p>
             </div>
+            {
+                publishToDislinkt ?
+                    <button className={classes.button}
+                        onClick={publishToDislinkt ? () => publishToDislinkt() : null}>
+                        Publish
+                    </button>
+                    : null
+            }
         </div>
     )
 }
