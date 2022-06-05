@@ -1,15 +1,33 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { addComment } from '../../../../../api/CompanyApi';
 import InteractiveStarRate from '../../../../StarRate/InteractiveStarRate/InteractiveStarRate'
 import classes from "./AddComment.module.css"
+import { axiosInstance } from '../../../../../api/AxiosInstance';
+import { useSelector } from 'react-redux';
 
 const AddComment = ({ toggleAddComment, company, reload }) => {
     const [comment, setComment] = useState({ mark: 0, currentlyWorking: false, companyId: company.id, userId: 1 });
     const [error, setError] = useState('');
+    const user = useSelector((state) => state.user.value);
+
 
     function ratingChanged(value) {
         setComment(prev => ({ ...prev, mark: parseFloat(value) }));
     }
+
+    useEffect(() => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                Accept: 'application/json',
+                'Authorization': `Bearer ${user.accessToken}`
+            }
+        }
+        axiosInstance.get(`/auth/whoami`, config)
+            .then((response) => {
+                user.id = response.data.id;
+            })
+    }, [])
 
     function onCommentChange(e) {
         const element = e.target.id;
@@ -35,11 +53,14 @@ const AddComment = ({ toggleAddComment, company, reload }) => {
 
     function onCommentSave(e){
         e.preventDefault();
-        
+        setComment(prev => ({ ...prev, userId: user.id }));
+
+
         if(!comment.caption || !comment.text || comment.mark === 0.0){
             setError("All fields are required.");
             return;
         }
+
 
         addComment(comment).then(() => {
             reload();

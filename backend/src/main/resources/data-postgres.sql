@@ -14,8 +14,7 @@ INSERT INTO registered_user(email, enabled, first_name, gender, last_name, passw
 INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('srdjan.s@gmail.com', true, 'Serhio', 0, 'Ramos', '$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW', 3);
 INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('ana@gmail.com', true, 'Ana', 1, 'Gavrilovic', '$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW', 3);
 INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('marija@gmail.com', true, 'Marija', 1, 'Kljestan', '$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW', 3);
-INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('stefanljubovic@gmail.com', true, 'Ljuba', 0, 'Ljubovic', '$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW', 2);
-INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('synDragan@synechron.com', true, 'Synechron', 0, '', '$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW', 2);
+INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('stefanljubovic@gmail.com', true, 'Synechron', 0, '', '$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW', 2);
 INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('leviNiner@levi9.com', true, 'Levi9', 0, '', '$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW', 2);
 INSERT INTO registered_user(email, enabled, first_name, gender, last_name, password, role_id) VALUES ('goooogle@google.com', true, 'Google', 0, '', '$2a$10$3kfQZW0qQFJIlfDcadR9UOmPwUDDz4wwkcxxAi1aQmfqZqRxAU/FW', 2);
 
