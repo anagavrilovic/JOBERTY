@@ -30,7 +30,6 @@ public class JobOfferServiceImpl implements JobOfferService {
     private final ModelMapper modelMapper;
     private final JobOfferRepository jobOfferRepository;
     private final ApiTokenRepository tokenRepository;
-    private final RestTemplate restTemplate;
 
     @Override
     public Integer save(JobOfferDto dto) {
@@ -48,23 +47,17 @@ public class JobOfferServiceImpl implements JobOfferService {
 
 
     @Override
-    public boolean sendJobOffer(Integer jobOfferId,String email){
+    public JobOffetTokenDto sendJobOffer(Integer jobOfferId,String email){
         ApiToken token=tokenRepository.findByEmail(email);
         System.out.println("token "+token.getToken());
         if(token !=null) {
             JobOffer jobOffer = jobOfferRepository.findById(jobOfferId).get();
             DislinktJobOfferDto dtoJob = modelMapper.map(jobOffer, DislinktJobOfferDto.class);
             JobOffetTokenDto dto = new JobOffetTokenDto(dtoJob, token.getToken());
-            Gson gson = new Gson();
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            HttpEntity<String> request =
-                    new HttpEntity<>(gson.toJson(dto), headers);
-            restTemplate.postForObject("https://localhost:8083/receive-job-offer", request, boolean.class);
-            System.out.println("Sending token");
-            return true;
+            //jobOfferRepository.delete(jobOffer);
+            return dto;
         }else{
-            return false;
+            return null;
         }
     }
 
