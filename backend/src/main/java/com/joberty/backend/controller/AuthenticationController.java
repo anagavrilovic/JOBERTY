@@ -8,6 +8,7 @@ import com.joberty.backend.model.RegisteredUser;
 import com.joberty.backend.service.interfaces.RegisteredUserService;
 import com.joberty.backend.util.TokenUtils;
 import lombok.AllArgsConstructor;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,9 @@ import java.security.Principal;
 @AllArgsConstructor
 public class AuthenticationController {
 
+    private static final org.slf4j.Logger LOGGER_INFO= LoggerFactory.getLogger("joberty-info");
+    private static final org.slf4j.Logger LOGGER_ERROR= LoggerFactory.getLogger("joberty-error");
+    private static final org.slf4j.Logger LOGGER_WARNING= LoggerFactory.getLogger("joberty-warning");
     private final TokenUtils tokenUtils;
     private final AuthenticationManager authenticationManager;
     private final RegisteredUserService userService;
@@ -38,6 +42,7 @@ public class AuthenticationController {
                     authenticationRequest.getEmail(), authenticationRequest.getPassword()));
         }
         catch (Exception ex){
+            LOGGER_WARNING.warn("User: " + authenticationRequest.getEmail() + " | Action: L");
             throw new UsernameNotFoundException();
         }
 
@@ -47,12 +52,14 @@ public class AuthenticationController {
         String jwt = tokenUtils.generateToken(user.getUsername());
         int expiresIn = tokenUtils.getExpiredIn();
 
+        LOGGER_INFO.info("User: " + authenticationRequest.getEmail() + " | Action: L");
         return ResponseEntity.ok(new UserTokenState(jwt, expiresIn, user.getRole().getName()));
     }
 
     @PostMapping("/register")
     public ResponseEntity<RegisteredUserDto> registerUser(@RequestBody RegisteredUserDto userDTO){
         RegisteredUserDto user = userService.registerUser(userDTO);
+        LOGGER_INFO.info("User: " + userDTO.getEmail() + " | Action: Register user");
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 

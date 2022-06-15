@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <property name="LOGS_HOME" value="/app/logs/" />
+    <appender name="FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>./logs/joberty-info.log</file>
+        <append>true</append>
+        <!--cleanHistoryOnStart>true</cleanHistoryOnStart-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS_HOME}joberty-info_%d{yyyyMMdd}-%i.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>1</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%level{5}] %date{ISO8601} | %message%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>./logs/joberty-error.log</file>
+    <append>true</append>
+    <!--cleanHistoryOnStart>true</cleanHistoryOnStart-->
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>${LOGS_HOME}joberty-error_%d{yyyyMMdd}-%i.log
+        </fileNamePattern>
+        <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            <maxFileSize>100MB</maxFileSize>
+        </timeBasedFileNamingAndTriggeringPolicy>
+        <maxHistory>1</maxHistory>
+    </rollingPolicy>
+    <encoder>
+        <pattern>[%level{5}] %date{ISO8601} | %message%n</pattern>
+    </encoder>
+    </appender>
+    <appender name="FILE_WARNING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_HOME}joberty-warning.log</file>
+        <append>true</append>
+        <!--cleanHistoryOnStart>true</cleanHistoryOnStart-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./logs/joberty-warning_%d{yyyyMMdd}-%i.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>1</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%level{5}] %date{ISO8601} | %message%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="joberty-info" level="INFO" additivity="false">
+        <appender-ref ref="FILE_INFO"/>
+    </logger>
+    <logger name="joberty-error" level="ERROR" additivity="false">
+        <appender-ref ref="FILE_ERROR"/>
+    </logger>
+    <logger name="joberty-warning" level="WARNING" additivity="false">
+        <appender-ref ref="FILE_WARNING"/>
+    </logger>
+</configuration>
