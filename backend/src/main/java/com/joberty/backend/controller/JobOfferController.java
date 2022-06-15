@@ -18,6 +18,9 @@ import org.springframework.web.server.ResponseStatusException;
 import java.security.Principal;
 import java.util.Collection;
 
+import static com.joberty.backend.JobertyApplication.LOGGER_ERROR;
+import static com.joberty.backend.JobertyApplication.LOGGER_INFO;
+
 @RestController
 @RequestMapping(value = "/job-offer", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
@@ -37,8 +40,10 @@ public class JobOfferController {
     public ResponseEntity<Integer> save(@RequestBody JobOfferDto dto){
         try {
             Integer jobOfferId = jobOfferService.save(dto);
+            LOGGER_INFO.info("User: " + dto.getCompany().getEmail() +  " | Action: CJO");
             return new ResponseEntity<>(jobOfferId, HttpStatus.CREATED);
         } catch (UnsupportedOperationException e) {
+            LOGGER_ERROR.error("User: " + dto.getCompany().getEmail() +  " | Action: CJO");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There was and error while creating job.");
         }
     }
@@ -46,12 +51,14 @@ public class JobOfferController {
     @GetMapping("all")
     public ResponseEntity<Collection<JobOffer>> getAll(){
         Collection<JobOffer> jobOffers = jobOfferService.findAll();
+        LOGGER_INFO.info("Action: JO");
         return new ResponseEntity<>(jobOffers, HttpStatus.OK);
     }
 
     @GetMapping("all/{email}")
     public ResponseEntity<Collection<JobOffer>> getByCompany(@PathVariable String email){
         Collection<JobOffer> jobOffers = jobOfferService.findByCompany(email);
+        LOGGER_INFO.info("Action: JO/:c");
         return new ResponseEntity<>(jobOffers, HttpStatus.OK);
     }
 }

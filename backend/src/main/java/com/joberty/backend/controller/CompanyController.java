@@ -16,6 +16,9 @@ import org.springframework.web.server.ResponseStatusException;
 import java.security.Principal;
 import java.util.Collection;
 
+import static com.joberty.backend.JobertyApplication.LOGGER_ERROR;
+import static com.joberty.backend.JobertyApplication.LOGGER_INFO;
+
 @RestController
 @RequestMapping(value = "/company", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
@@ -26,18 +29,21 @@ public class CompanyController {
     @GetMapping("/all")
     public ResponseEntity<Collection<CompanyDto>> findAll(){
         Collection<CompanyDto> companies = companyService.findAll();
+        LOGGER_INFO.info("Action: GC");
         return new ResponseEntity<>(companies, HttpStatus.OK);
     }
 
     @GetMapping("/{email}")
     public ResponseEntity<Company> getByEmail(@PathVariable String email){
         Company company = companyService.getByEmail(email);
+        LOGGER_INFO.info("Action: GC/:email");
         return new ResponseEntity<>(company, HttpStatus.OK);
     }
 
     @GetMapping("/owner")
     public ResponseEntity<Company> getByOwner(Principal principal){
         Company company = companyService.getByEmail(principal.getName());
+        LOGGER_INFO.info("User: " + principal.getName() + " | Action: GC/:owner");
         return new ResponseEntity<>(company, HttpStatus.OK);
     }
 
@@ -45,8 +51,10 @@ public class CompanyController {
     public ResponseEntity<String> update(@RequestBody Company company){
         try {
             companyService.update(company);
+            LOGGER_INFO.info("User: " + company.getEmail() + " | Action: UC");
             return new ResponseEntity<>("Successfully updated. ", HttpStatus.OK);
         } catch (UnsupportedOperationException e) {
+            LOGGER_ERROR.error("User: " + company.getEmail() + " | Action: UC");
             return new ResponseEntity<>("Company does not exist. ", HttpStatus.BAD_REQUEST);
         }
     }

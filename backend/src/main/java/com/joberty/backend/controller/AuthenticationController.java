@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
+import static com.joberty.backend.JobertyApplication.LOGGER_INFO;
+import static com.joberty.backend.JobertyApplication.LOGGER_WARNING;
+
 @RestController
 @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
@@ -38,6 +41,7 @@ public class AuthenticationController {
                     authenticationRequest.getEmail(), authenticationRequest.getPassword()));
         }
         catch (Exception ex){
+            LOGGER_WARNING.warn("User: " + authenticationRequest.getEmail() + " | Action: L");
             throw new UsernameNotFoundException();
         }
 
@@ -47,12 +51,14 @@ public class AuthenticationController {
         String jwt = tokenUtils.generateToken(user.getUsername());
         int expiresIn = tokenUtils.getExpiredIn();
 
+        LOGGER_INFO.info("User: " + authenticationRequest.getEmail() + " | Action: L");
         return ResponseEntity.ok(new UserTokenState(jwt, expiresIn, user.getRole().getName()));
     }
 
     @PostMapping("/register")
     public ResponseEntity<RegisteredUserDto> registerUser(@RequestBody RegisteredUserDto userDTO){
         RegisteredUserDto user = userService.registerUser(userDTO);
+        LOGGER_INFO.info("User: " + userDTO.getEmail() + " | Action: R");
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
@@ -60,6 +66,7 @@ public class AuthenticationController {
     //@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<RegisteredUserDto> getLoggedInUser(Principal principal) {
         RegisteredUserDto user = userService.getUserByUsername(principal.getName());
+        LOGGER_INFO.info("User: " + principal.getName() + " | Action: W");
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
