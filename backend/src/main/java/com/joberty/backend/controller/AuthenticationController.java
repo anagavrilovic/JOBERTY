@@ -8,7 +8,6 @@ import com.joberty.backend.model.RegisteredUser;
 import com.joberty.backend.service.interfaces.RegisteredUserService;
 import com.joberty.backend.util.TokenUtils;
 import lombok.AllArgsConstructor;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +20,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
+import static com.joberty.backend.JobertyApplication.LOGGER_INFO;
+import static com.joberty.backend.JobertyApplication.LOGGER_WARNING;
+
 @RestController
 @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 public class AuthenticationController {
 
-    private static final org.slf4j.Logger LOGGER_INFO= LoggerFactory.getLogger("joberty-info");
-    private static final org.slf4j.Logger LOGGER_ERROR= LoggerFactory.getLogger("joberty-error");
-    private static final org.slf4j.Logger LOGGER_WARNING= LoggerFactory.getLogger("joberty-warning");
     private final TokenUtils tokenUtils;
     private final AuthenticationManager authenticationManager;
     private final RegisteredUserService userService;
@@ -59,7 +58,7 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ResponseEntity<RegisteredUserDto> registerUser(@RequestBody RegisteredUserDto userDTO){
         RegisteredUserDto user = userService.registerUser(userDTO);
-        LOGGER_INFO.info("User: " + userDTO.getEmail() + " | Action: Register user");
+        LOGGER_INFO.info("User: " + userDTO.getEmail() + " | Action: R");
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
@@ -67,6 +66,7 @@ public class AuthenticationController {
     //@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<RegisteredUserDto> getLoggedInUser(Principal principal) {
         RegisteredUserDto user = userService.getUserByUsername(principal.getName());
+        LOGGER_INFO.info("User: " + principal.getName() + " | Action: W");
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
