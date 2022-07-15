@@ -8,7 +8,7 @@ import AuthentificationService from "../../services/AuthentificationService";
 
 
 function Login(props) {
-    const [loginError, setLoginError] = useState("");
+    const [error, setError] = useState(false);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -17,35 +17,37 @@ function Login(props) {
     function submitHandler(event) {
         event.preventDefault();
         
-        const loginDto = {
+        const credentials = {
             email: event.target[0].value,
             password: event.target[1].value
         }
         
-        AuthentificationService.login(loginDto)
+        AuthentificationService.login(credentials)
         .then((response) => {
             dispatch(login(response.data));
+            localStorage.setItem('token',response.data.accessToken)
             navigate("/home");
         })
         .catch(() => {
-            setLoginError("Wrong username or password! Try again.");
+            setError(true);
         })
     }
 
     return (
         <div className={classes.login}>
-            <h1>Log in</h1>
+            <h1 className={classes.caption}>Log in</h1>
             <form onSubmit={submitHandler} className={classes.form}>
+                <div className={classes.errorMessage}> {error ? "Wrong email or password! Try again." : ""}</div>
+
                 <div className={classes.formItem}>
-                    <input type="text" required placeholder="Username" />
+                    <input type="text" required placeholder="Email" onChange={() => setError(false)} />
                 </div>
                 <div className={classes.formItem}>
-                    <input type="password" required placeholder="Password" />
+                    <input type="password" required placeholder="Password" onChange={() => setError(false)} />
                 </div>
-                <p className={classes.errorMessage}>{loginError}</p>
 
                 <button className={classes.buttonLogIn}>Log in</button>
-                <a href="/#" className={classes.registerLink} onClick={() => props.changePage(false)} >
+                <a href="/#" className={classes.registerLink} onClick={() => props.navigateToRegister()} >
                     Don't have an account? Register here.
                 </a>
             </form>

@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
 import classes from "./Navbar.module.css";
+import { CheckUserPermission } from '../../components/Permissions/CheckUserPermission.js';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../features/user";
+import j from "../../images/j.png"
 
 function Navbar() {
     var [mobileNavClicked, setMobileNavClicked] = useState(false);
@@ -23,20 +26,38 @@ function Navbar() {
             {mobileNavClicked ? (<div className={classes.backdrop} onClick={() => setMobileNavClicked(false)} ></div>) : null}
 
             <nav className={classes.nav}>
-                <div>
-                    <Link to="/home" className={classes.link}>
-                        Home
+                <div className={classes.navLogo}>
+                    <Link to="/home" className={classes.logoLink}>
+                        <img src={j} alt="Joberty" className={classes.logo} />
+                        <p className={classes.logoText}>oberty</p>
                     </Link>
+                    <div className={classes.formItem}>
+                        <FontAwesomeIcon icon={faMagnifyingGlass} className={classes.icon} />
+                        <input type='text' placeholder='Search companies...' />
+                    </div>
                 </div>
                 <div>
-                    <Link to="/allCertificates" className={classes.link}>
-                        All Certificates
+                    <Link to="/companies" className={classes.link}>
+                        Companies
                     </Link>
-                    <Link to="/newCertificate" className={classes.link}>
-                        New Certificate
+                    <Link to="/jobs" className={classes.link}>
+                        Jobs
                     </Link>
+                    <Link to="/salaries" className={classes.link}>
+                        Salaries
+                    </Link>
+                    <CheckUserPermission role="['ROLE_ADMIN']">
+                        <Link to="/requests" className={classes.link}>
+                            Registration requests
+                        </Link>
+                    </CheckUserPermission>
+                    <CheckUserPermission role="['ROLE_COMPANY_OWNER']">
+                        <Link to="/my-company" className={classes.link}>
+                            My Company
+                        </Link>
+                    </CheckUserPermission>
                     <Link to="/" className={classes.link}>
-                        LogOut <FontAwesomeIcon icon={faRightFromBracket}  onClick={handleLogOut}/>
+                        <FontAwesomeIcon icon={faRightFromBracket} onClick={handleLogOut} />
                     </Link>
                     <FontAwesomeIcon icon={faBars} className={classes.menuIcon} onClick={() => setMobileNavClicked(true)} />
                 </div>
@@ -48,12 +69,25 @@ function Navbar() {
                         <Link to="/home" className={classes.mobileLink} onClick={() => setMobileNavClicked(false)} >
                             Home
                         </Link>
-                        <Link to="/allCertificates" className={classes.mobileLink} onClick={() => setMobileNavClicked(false)} >
-                            All Certificates
+                        <Link to="/companies" className={classes.mobileLink} onClick={() => setMobileNavClicked(false)} >
+                            Companies
                         </Link>
-                        <Link to="/newCertificate" className={classes.mobileLink} onClick={() => setMobileNavClicked(false)}  >
-                            New Certificate
+                        <Link to="/jobs" className={classes.mobileLink} onClick={() => setMobileNavClicked(false)}  >
+                            Jobs
                         </Link>
+                        <Link to="/salaries" className={classes.mobileLink} onClick={() => setMobileNavClicked(false)}  >
+                            Salaries
+                        </Link>
+                        <CheckUserPermission role="['ROLE_ADMIN']">
+                            <Link to="/requests" className={classes.mobileLink} onClick={() => setMobileNavClicked(false)}  >
+                                Registration requests
+                            </Link>
+                        </CheckUserPermission>
+                        <CheckUserPermission role="['ROLE_COMPANY_OWNER']">
+                            <Link to="/my-company" className={classes.mobileLink} onClick={() => setMobileNavClicked(false)}  >
+                                My Company
+                            </Link>
+                        </CheckUserPermission>
                         <Link to="/" className={classes.mobileLink}>
                             LogOut <FontAwesomeIcon icon={faRightFromBracket} />
                         </Link>

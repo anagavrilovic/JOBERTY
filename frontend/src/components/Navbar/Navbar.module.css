@@ -1,17 +1,58 @@
 .nav {
+    position: fixed;
+    width: calc(100vw - 14%);
+    z-index: 100;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    height: 3rem;
-    background-color: #356c91;
-    color: white;
-    padding: 0 2rem;
+    height: 3.5rem;
+    background-color: white;
+    color: var(--main-text);
+    padding: 0 7%;
+    box-shadow: 1px 1px 5px #bebebe;
+}
+
+.navLogo {
+    display: flex;
+    align-items: center;
+    margin-left: -0.5rem;
+}
+
+.formItem {
+    display: flex;
+    align-items: center;
+    padding-left: 0.5rem;
+    background-color: white;
+    border: 1px solid #cacaca;
+    height: 2rem;
+    width: 100%;
+    margin: 0 2rem;
+    box-shadow: 1px 1px 4px #dddddd;
+}
+
+.icon {
+    color: rgb(91, 91, 91);
+}
+
+.formItem input{
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    font-size: 1rem;
+    padding-left: 0.5rem;
+    font-family: inherit;
+    color: var(--main-text);
+}
+
+.formItem input:focus {
+    outline: none;
 }
 
 .link {
     text-decoration: none;
-    color: white;
+    color: var(--main-text);
     padding: 0.5rem 1rem;
     font-size: 0.95rem;
 }
@@ -19,7 +60,25 @@
 .link:hover,
 .link:active {
     background-color: rgba(255, 255, 255, 0.6);
-    color: #356c91;
+    color: var(--dark-yellow);
+}
+
+.logoLink { 
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.logoText {
+    color: var(--yellow);
+    font-weight: bold;
+    margin-left: -0.9rem;
+    font-size: 1.5rem;
 }
 
 .menuIcon {
@@ -32,7 +91,8 @@
     z-index: 101;
     top: 0;
     right: 0;
-    background-color: #356c91;
+    background-color: white;
+    color: var(--main-text);
     width: 60%;
     height: 100vh;
 }
@@ -45,7 +105,7 @@
 
 .mobileLink {
     text-decoration: none;
-    color: white;
+    color: var(--main-text);
     padding: 0.5rem 2rem;
     font-size: 0.95rem;
 }
@@ -53,7 +113,7 @@
 .mobileLink:hover,
 .mobileLink:active {
     background-color: rgba(255, 255, 255, 0.6);
-    color: #356c91;
+    color: var(--dark-yellow);
 }
 
 .backdrop {
@@ -66,12 +126,49 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+@media (max-width: 62rem) {
+    .link {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
+}
+
+@media (max-width: 50rem) {
+    .formItem {
+        display: none;
+    }
+}
+
 @media (max-width: 40rem) {
+    .nav {
+        padding: 0 5%;
+        width: calc(100vw - 10%);
+    }
+
+    .navLogo {
+        flex: 1;
+    }
+
+    .formItem {
+        margin: 0 2rem;
+        display: flex;
+    }
+
     .link {
         display: none;
     }
 
     .menuIcon {
         display: inline;
+    }
+
+    .logo {
+        width: 2.3rem;
+        height: 2.3rem;
+    }
+
+    .logoText {
+        font-size: 1.3rem;
+        margin-left: -0.8rem;
     }
 }
